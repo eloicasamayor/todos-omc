@@ -1,11 +1,9 @@
 import "./App.css";
-import { Todos } from "./todos/Todos";
+import { Todos, getTodos, replaceTodos, requestTodos } from "./todos";
 import { store } from "./store";
 import { Provider } from "react-redux";
 
-setInterval(() => {
-  //console.log(store.getState());
-}, 1000);
+store.dispatch(requestTodos());
 
 export default function App() {
   return (
