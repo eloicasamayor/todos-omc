@@ -31,3 +31,8 @@ export const REQUEST_UPDATE_TODO = "todos/REQUEST_UPDATE_TODO";
 export function requestUpdateTodo(updatedTodo) {
   return { type: REQUEST_UPDATE_TODO, todo: updatedTodo };
 }
+
+export const DELETE_TODO = "todos/DELETE_TODO";
+export function deleteTodo(deletedTodo) {
+  return { type: DELETE_TODO, todo: deletedTodo };
+}
