@@ -6,8 +6,7 @@ export function reduceTodos(state = initialState, action) {
     case REPLACE_TODOS: {
       return action.todos;
     }
-    default:
-      return state;
+
     case ADD_TODO:
       return [...state, action.todo];
     case UPDATE_TODO: {
@@ -15,5 +14,7 @@ export function reduceTodos(state = initialState, action) {
         currentTodo.id === action.todo.id ? action.todo : currentTodo
       );
     }
+    default:
+      return state;
   }
 }
