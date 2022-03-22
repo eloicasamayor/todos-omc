@@ -14,6 +14,10 @@ export function reduceTodos(state = initialState, action) {
         currentTodo.id === action.todo.id ? action.todo : currentTodo
       );
     }
+    case "DELETE_TODO":
+      return state.map((currentTodo) =>
+        currentTodo.id === action.todo.id ? action.todo : currentTodo
+      );
     default:
       return state;
   }

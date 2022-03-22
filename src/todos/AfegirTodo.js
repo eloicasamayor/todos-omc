@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { postNewTodo } from "./TodosApi";
 export function AfegirTodo({ onAddTodo }) {
   const inputRef = useRef();
 

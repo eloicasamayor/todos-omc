@@ -1,5 +1,3 @@
-import { postUpdateTodo } from "./TodosApi";
-
 export const ENDPOINT = "https://tc-todo-2022.herokuapp.com/todos";
 export function TodoItem({ todo, onTodoUpdated }) {
   return (
@@ -8,6 +6,7 @@ export function TodoItem({ todo, onTodoUpdated }) {
       onClick={() => onTodoUpdated({ ...todo, completed: !todo.completed })}
     >
       {todo.title}
+      <button>X</button>
     </li>
   );
 }

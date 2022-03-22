@@ -17,3 +17,10 @@ export function postUpdateTodo(todo) {
     body: JSON.stringify(todo),
   }).then((response) => response.json());
 }
+
+export function deleteDeleteTodo(todo) {
+  return fetch(ENDPOINT + "/" + todo.id, {
+    method: "DELETE",
+    body: JSON.stringify(todo),
+  }).then((response) => response.json());
+}
