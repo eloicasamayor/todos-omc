@@ -15,8 +15,8 @@ export function reduceTodos(state = initialState, action) {
       );
     }
     case DELETE_TODO:
-      return [];
-    //state.filter()...
+      return state.filter((todo) => todo.id !== action.todo.id);
+
     default:
       return state;
   }

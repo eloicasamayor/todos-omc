@@ -5,16 +5,16 @@ import {
   requestUpdateTodo,
   requestAddTodo,
   requestTodos,
-  deleteTodo,
-} from "./actions";
+  requestDeleteTodo,
+} from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTodos } from "./selectots";
+import { selectTodos } from "../redux/selectors";
 
 export function Todos() {
   const todos = useSelector(selectTodos);
   const dispatch = useDispatch();
   useEffect(() => {
-    const intervalID = setInterval(() => loadTodos(), 60000);
+    const intervalID = setInterval(() => loadTodos(), 1000);
     return () => clearInterval(intervalID);
   }, []);
 
@@ -22,7 +22,7 @@ export function Todos() {
   const onAddTodo = (todo) => dispatch(requestAddTodo(todo));
   const onTodoUpdated = (updatedTodo) =>
     dispatch(requestUpdateTodo(updatedTodo));
-  const onTodoDeleted = (todo) => dispatch(deleteTodo(todo));
+  const onTodoDeleted = (todo) => dispatch(requestDeleteTodo(todo));
 
   return (
     <div className="App">
