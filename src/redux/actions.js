@@ -49,3 +49,8 @@ export const EDIT_TODO = "todos/EDIT_TODO";
 export function editTodo(editedTodo) {
   return { type: EDIT_TODO, todo: editedTodo };
 }
+
+export const FILTER_TODOS = "todos/FILTER_TODOS";
+export function filterTodos(query) {
+  return { type: FILTER_TODOS, query: query };
+}

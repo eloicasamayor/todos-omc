@@ -1,6 +1,6 @@
 .completed {
   text-decoration: line-through;
 }
-li {
+li span {
   cursor: pointer;
 }

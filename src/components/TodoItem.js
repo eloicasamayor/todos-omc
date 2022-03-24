@@ -6,12 +6,16 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted }) {
   let inputRef = useRef();
   return (
     <>
-      <li
-        className={todo.completed ? "completed" : "pending"}
-        onClick={() => onTodoUpdated({ ...todo, completed: !todo.completed })}
-      >
+      <li className={todo.completed ? "completed" : "pending"}>
         {!editing ? (
-          todo.title
+          <span
+            onClick={() => {
+              onTodoUpdated({ ...todo, completed: !todo.completed });
+              console.log("has fet clic al todo");
+            }}
+          >
+            {todo.title}
+          </span>
         ) : (
           <input type="text" defaultValue={todo.title} ref={inputRef} />
         )}
