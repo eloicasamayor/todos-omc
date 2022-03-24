@@ -1,4 +1,11 @@
-import { REPLACE_TODOS, ADD_TODO, UPDATE_TODO, DELETE_TODO } from "./actions";
+import { act } from "react-dom/test-utils";
+import {
+  REPLACE_TODOS,
+  ADD_TODO,
+  UPDATE_TODO,
+  DELETE_TODO,
+  FILTER_TODOS,
+} from "./actions";
 export const initialState = [];
 
 export function reduceTodos(state = initialState, action) {
@@ -16,6 +23,14 @@ export function reduceTodos(state = initialState, action) {
     }
     case DELETE_TODO:
       return state.filter((todo) => todo.id !== action.todo.id);
+
+    //aixo aniria a un reducer a part reduceFilTER
+    // i també, les best practices seria fer unes accions a part també
+    //i combineReducers dels de reduceTodos i reduceFilter.
+    case FILTER_TODOS:
+      console.log("state===", state);
+      console.log("action ====== ", action);
+      return { ...state, searchquery: action.searchquery };
 
     default:
       return state;

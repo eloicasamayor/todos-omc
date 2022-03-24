@@ -7,7 +7,7 @@ export function requestTodos() {
 
 export const REPLACE_TODOS = "todos/REPLACE_TODOS";
 export function replaceTodos(todos = []) {
-  return { type: REPLACE_TODOS, todos: todos };
+  return { type: REPLACE_TODOS, todos };
 }
 
 export const ADD_TODO = "todos/ADD_TODO";
@@ -51,6 +51,6 @@ export function editTodo(editedTodo) {
 }
 
 export const FILTER_TODOS = "todos/FILTER_TODOS";
-export function filterTodos(query) {
-  return { type: FILTER_TODOS, query: query };
+export function filterTodos(searchquery) {
+  return { type: FILTER_TODOS, searchquery: searchquery };
 }

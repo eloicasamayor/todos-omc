@@ -27,13 +27,13 @@ export function Todos() {
   const onFilterTodos = (query) => dispatch(filterTodos(query));
   const onSearch = (e) => {
     e.preventDefault();
-    onFilterTodos(inputRef.current.value);
+    /* onFilterTodos(inputRef.current.value);*/
     setSearching(() => inputRef.current.value !== "");
-    console.log("searching " + inputRef.current.value);
   };
   const inputRef = useRef();
   const [searching, setSearching] = useState(false);
 
+  console.log("todos=", todos);
   return (
     <div className="App">
       <button onClick={loadTodos}>Refresh</button>
