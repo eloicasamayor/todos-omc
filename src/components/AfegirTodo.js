@@ -13,7 +13,7 @@ export function AfegirTodo({ onAddTodo }) {
       }}
     >
       <input type="text" ref={inputRef}></input>
-      <input type="submit" value="afegir"></input>
+      <input type="submit" value="add"></input>
     </form>
   );
 }

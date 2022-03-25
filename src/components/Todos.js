@@ -6,13 +6,20 @@ import {
   requestAddTodo,
   requestTodos,
   requestDeleteTodo,
-  filterTodos,
-} from "../redux/actions";
+  selectTodos,
+  selectFilters,
+} from "../redux/todos";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTodos } from "../redux/selectors";
+import {
+  caseSensitiveSearchFilter,
+  searchQueryFilter,
+} from "../redux/filters/actions";
+import { Filters } from "./Filters";
 
 export function Todos() {
   const todos = useSelector(selectTodos);
+  const filters = useSelector(selectFilters);
+
   const dispatch = useDispatch();
   useEffect(() => {
     const intervalID = setInterval(() => loadTodos(), 60000);
@@ -24,31 +31,31 @@ export function Todos() {
   const onTodoUpdated = (updatedTodo) =>
     dispatch(requestUpdateTodo(updatedTodo));
   const onTodoDeleted = (todo) => dispatch(requestDeleteTodo(todo));
-  const onFilterTodos = (query) => dispatch(filterTodos(query));
+  const onFilterTodos = (query) => dispatch(searchQueryFilter(query));
+  const onCaseSensitiveChanged = (e) => {
+    dispatch(caseSensitiveSearchFilter(e.target.checked));
+  };
+
   const onSearch = (e) => {
     e.preventDefault();
-    /* onFilterTodos(inputRef.current.value);*/
+    onFilterTodos(inputRef.current.value);
     setSearching(() => inputRef.current.value !== "");
   };
   const inputRef = useRef();
+  const caseSensitiveSearchChechbox = useRef();
   const [searching, setSearching] = useState(false);
-
-  console.log("todos=", todos);
   return (
     <div className="App">
       <button onClick={loadTodos}>Refresh</button>
-      <form onSubmit={onSearch}>
-        <input
-          type="text"
-          ref={inputRef}
-          onChange={onSearch}
-          placeholder="search todos"
-        />
-        {searching && (
-          <button onClick={() => (inputRef.current.value = "")}>clear</button>
-        )}
-      </form>
-      {searching ? <h1>Search results:</h1> : <h1>Llista de todos</h1>}
+      <Filters
+        onSearch={onSearch}
+        inputRef={inputRef}
+        searching={searching}
+        caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
+        onCaseSensitiveChanged={onCaseSensitiveChanged}
+        defaultCaseSensitiveChecked={filters.casesensitive}
+      />
+      {searching ? <h1>Search results:</h1> : <h1>Todo list</h1>}
       <TodoList
         todos={todos}
         onTodoUpdated={onTodoUpdated}

@@ -11,7 +11,6 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted }) {
           <span
             onClick={() => {
               onTodoUpdated({ ...todo, completed: !todo.completed });
-              console.log("has fet clic al todo");
             }}
           >
             {todo.title}
@@ -28,9 +27,9 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted }) {
               setEditing((e) => true);
             }}
           >
-            editar
+            edit
           </button>
-          <button onClick={() => onTodoDeleted(todo)}>borrar</button>
+          <button onClick={() => onTodoDeleted(todo)}>delete</button>
         </>
       ) : (
         <>
@@ -47,7 +46,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted }) {
               setEditing((e) => false);
             }}
           >
-            confirmar edicio
+            confirm edit
           </button>
         </>
       )}

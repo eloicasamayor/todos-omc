@@ -1,7 +1,7 @@
 import "./App.css";
 import { Todos } from "./components";
-import { requestTodos } from "./redux";
-import { store } from "./store";
+import { requestTodos } from "./redux/todos";
+import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
 store.dispatch(requestTodos());
