@@ -51,24 +51,28 @@ export function Todos() {
   const [searching, setSearching] = useState(false);
   return (
     <div className="App">
-      <button onClick={loadTodos}>Refresh</button>
-      <Filters
-        onSearch={onSearch}
-        inputRef={inputRef}
-        searching={searching}
-        caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
-        onCaseSensitiveChanged={onCaseSensitiveChanged}
-        defaultCaseSensitiveChecked={filters.casesensitive}
-        onlyUncompletedCheckbox={onlyUncompletedCheckbox}
-        onOnlyUncompletedChanged={onOnlyUncompletedChanged}
-      />
-      {searching ? <h1>Search results:</h1> : <h1>Todo list</h1>}
-      <TodoList
-        todos={todos}
-        onTodoUpdated={onTodoUpdated}
-        onTodoDeleted={onTodoDeleted}
-      />
-      <AfegirTodo onAddTodo={onAddTodo} />
+      {/*  <button onClick={loadTodos}>Refresh</button> */}
+      <aside>
+        <Filters
+          onSearch={onSearch}
+          inputRef={inputRef}
+          searching={searching}
+          caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
+          onCaseSensitiveChanged={onCaseSensitiveChanged}
+          defaultCaseSensitiveChecked={filters.casesensitive}
+          onlyUncompletedCheckbox={onlyUncompletedCheckbox}
+          onOnlyUncompletedChanged={onOnlyUncompletedChanged}
+        />
+        <AfegirTodo onAddTodo={onAddTodo} />
+      </aside>
+      <main>
+        {searching ? <h1>Search results:</h1> : <h1>Todo list</h1>}
+        <TodoList
+          todos={todos}
+          onTodoUpdated={onTodoUpdated}
+          onTodoDeleted={onTodoDeleted}
+        />
+      </main>
     </div>
   );
 }
