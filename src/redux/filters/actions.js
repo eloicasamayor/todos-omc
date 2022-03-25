@@ -12,3 +12,11 @@ export function caseSensitiveSearchFilter(casesensitive) {
     casesensitive: casesensitive,
   };
 }
+
+export const ONLY_UNCOMPLETED = "filters/ONLY_UNCOMPLETED";
+export function onlyUncompletedFilter(onlyUncompleted) {
+  return {
+    type: ONLY_UNCOMPLETED,
+    onlyUncompleted: onlyUncompleted,
+  };
+}

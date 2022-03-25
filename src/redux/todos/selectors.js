@@ -1,16 +1,22 @@
 export function selectTodos(state) {
+  let todos = [];
   if (state.filters.searchquery === "") {
-    return state.todos;
-  }
-  if (state.filters.casesensitive) {
-    return state.todos.filter((t) =>
-      t.title.includes(state.filters.searchquery)
-    );
+    todos = state.todos;
   } else {
-    return state.todos.filter((t) =>
-      t.title.toLowerCase().includes(state.filters.searchquery.toLowerCase())
-    );
+    if (state.filters.casesensitive) {
+      todos = state.todos.filter((t) =>
+        t.title.includes(state.filters.searchquery)
+      );
+    } else {
+      todos = state.todos.filter((t) =>
+        t.title.toLowerCase().includes(state.filters.searchquery.toLowerCase())
+      );
+    }
   }
+  if (state.filters.onlyUncompleted) {
+    todos = todos.filter((t) => t.completed === false);
+  }
+  return todos;
 }
 export function selectFilters(state) {
   return state.filters;

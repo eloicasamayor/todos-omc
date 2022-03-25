@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   caseSensitiveSearchFilter,
   searchQueryFilter,
+  onlyUncompletedFilter,
 } from "../redux/filters/actions";
 import { Filters } from "./Filters";
 
@@ -35,6 +36,9 @@ export function Todos() {
   const onCaseSensitiveChanged = (e) => {
     dispatch(caseSensitiveSearchFilter(e.target.checked));
   };
+  const onOnlyUncompletedChanged = (e) => {
+    dispatch(onlyUncompletedFilter(e.target.checked));
+  };
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -43,6 +47,7 @@ export function Todos() {
   };
   const inputRef = useRef();
   const caseSensitiveSearchChechbox = useRef();
+  const onlyUncompletedCheckbox = useRef();
   const [searching, setSearching] = useState(false);
   return (
     <div className="App">
@@ -54,6 +59,8 @@ export function Todos() {
         caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
         onCaseSensitiveChanged={onCaseSensitiveChanged}
         defaultCaseSensitiveChecked={filters.casesensitive}
+        onlyUncompletedCheckbox={onlyUncompletedCheckbox}
+        onOnlyUncompletedChanged={onOnlyUncompletedChanged}
       />
       {searching ? <h1>Search results:</h1> : <h1>Todo list</h1>}
       <TodoList

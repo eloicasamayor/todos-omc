@@ -5,6 +5,8 @@ export function Filters({
   caseSensitiveCheckbox,
   onCaseSensitiveChanged,
   defaultCaseSensitiveChecked,
+  onlyUncompletedTodos,
+  onOnlyUncompletedChanged,
 }) {
   return (
     <>
@@ -37,6 +39,15 @@ export function Filters({
             </label>
           </>
         )}
+        <label>
+          <input
+            type="checkbox"
+            value="only uncompleted todos"
+            ref={onlyUncompletedTodos}
+            onChange={(e) => onOnlyUncompletedChanged(e)}
+          />
+          Only uncompleted todos
+        </label>
       </form>
     </>
   );
