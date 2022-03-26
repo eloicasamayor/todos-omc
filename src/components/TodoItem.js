@@ -73,6 +73,13 @@ export function TodoItem({
             edit
           </button>
           <button onClick={() => onTodoDeleted(todo)}>delete</button>
+          <button
+            onClick={() => {
+              onTodoUpdated({ ...todo, completed: !todo.completed });
+            }}
+          >
+            {todo.completed ? "mark as uncompleted" : "mark as completed"}
+          </button>
         </>
       ) : (
         <>
