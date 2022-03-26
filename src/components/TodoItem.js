@@ -11,18 +11,19 @@ export function TodoItem({
   const [editing, setEditing] = useState(false);
   let titleInputRef = useRef();
   let detailsInputRef = useRef();
+
   const highlightText = (text) => {
     let highlight = filters.searchquery;
-    const parts = text.split(new RegExp(`(${highlight})`, "gi"));
 
+    const parts = text.split(new RegExp(`(${highlight})`, "gi"));
+    let partsToCompare = [...parts];
+    if (filters.casesensitive) {
+      partsToCompare = parts.map((p) => p.toLowerCase());
+    }
     return (
       <p>
-        {parts.map((part) =>
-          part.toLowerCase() === highlight.toLowerCase() ? (
-            <mark>{part}</mark>
-          ) : (
-            part
-          )
+        {partsToCompare.map((part, i) =>
+          part === highlight ? <mark>{parts[i]}</mark> : parts[i]
         )}
       </p>
     );
