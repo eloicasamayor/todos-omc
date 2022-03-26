@@ -1,10 +1,32 @@
 import { useRef, useState } from "react";
 
 export const ENDPOINT = "https://tc-todo-2022.herokuapp.com/todos";
-export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
+export function TodoItem({
+  todo,
+  onTodoUpdated,
+  onTodoDeleted,
+  filters,
+  searching,
+}) {
   const [editing, setEditing] = useState(false);
   let titleInputRef = useRef();
   let detailsInputRef = useRef();
+  const highlightText = (text) => {
+    let highlight = filters.searchquery;
+    const parts = text.split(new RegExp(`(${highlight})`, "gi"));
+
+    return (
+      <p>
+        {parts.map((part) =>
+          part.toLowerCase() === highlight.toLowerCase() ? (
+            <mark>{part}</mark>
+          ) : (
+            part
+          )
+        )}
+      </p>
+    );
+  };
   return (
     <>
       <li className={todo.completed ? "completed" : "pending"}>
@@ -14,7 +36,17 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
               onTodoUpdated({ ...todo, completed: !todo.completed });
             }}
           >
-            {todo.title}
+            {searching ? (
+              <>
+                {highlightText(todo.title)}
+                {highlightText(todo.details)}
+              </>
+            ) : (
+              <>
+                <p>{todo.title}</p>
+                <p>{todo.details}</p>
+              </>
+            )}
           </span>
         ) : (
           <>
@@ -28,7 +60,6 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             />
           </>
         )}
-        <p>{todo.details}</p>
       </li>
 
       {!editing ? (

@@ -10,7 +10,9 @@ export function TodoList({
   return (
     <>
       {searching ? (
-        <h1>Search results for "{filters.searchquery}"</h1>
+        <h1>
+          Search results for "<mark>{filters.searchquery}</mark>"
+        </h1>
       ) : (
         <>
           <h1>All todos</h1>
