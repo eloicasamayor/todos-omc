@@ -42,10 +42,10 @@ export function Todos() {
 
   const onSearch = (e) => {
     e.preventDefault();
-    onFilterTodos(inputRef.current.value);
-    setSearching(() => inputRef.current.value !== "");
+    onFilterTodos(searchInputRef.current.value);
+    setSearching(() => searchInputRef.current.value !== "");
   };
-  const inputRef = useRef();
+  const searchInputRef = useRef();
   const caseSensitiveSearchChechbox = useRef();
   const onlyUncompletedCheckbox = useRef();
   const [searching, setSearching] = useState(false);
@@ -55,7 +55,7 @@ export function Todos() {
       <aside>
         <Filters
           onSearch={onSearch}
-          inputRef={inputRef}
+          searchInputRef={searchInputRef}
           searching={searching}
           caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
           onCaseSensitiveChanged={onCaseSensitiveChanged}
@@ -66,11 +66,12 @@ export function Todos() {
         <AfegirTodo onAddTodo={onAddTodo} />
       </aside>
       <main>
-        {searching ? <h1>Search results:</h1> : <h1>Todo list</h1>}
         <TodoList
           todos={todos}
           onTodoUpdated={onTodoUpdated}
           onTodoDeleted={onTodoDeleted}
+          searching={searching}
+          filters={filters}
         />
       </main>
     </div>

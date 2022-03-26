@@ -1,6 +1,6 @@
 export function Filters({
   onSearch,
-  inputRef,
+  searchInputRef,
   searching,
   caseSensitiveCheckbox,
   onCaseSensitiveChanged,
@@ -14,14 +14,14 @@ export function Filters({
       <form onSubmit={onSearch}>
         <input
           type="text"
-          ref={inputRef}
+          ref={searchInputRef}
           onChange={onSearch}
           placeholder="search todos"
         />
         {searching && (
           <>
             <button
-              onClick={() => (inputRef.current.value = "")}
+              onClick={() => (searchInputRef.current.value = "")}
               title="clear search"
             >
               X

@@ -4,12 +4,20 @@ export function selectTodos(state) {
     todos = state.todos;
   } else {
     if (state.filters.casesensitive) {
-      todos = state.todos.filter((t) =>
-        t.title.includes(state.filters.searchquery)
+      todos = state.todos.filter(
+        (t) =>
+          t.title.includes(state.filters.searchquery) ||
+          t.details.includes(state.filters.searchquery)
       );
     } else {
-      todos = state.todos.filter((t) =>
-        t.title.toLowerCase().includes(state.filters.searchquery.toLowerCase())
+      todos = state.todos.filter(
+        (t) =>
+          t.title
+            .toLowerCase()
+            .includes(state.filters.searchquery.toLowerCase()) ||
+          t.details
+            .toLowerCase()
+            .includes(state.filters.searchquery.toLowerCase())
       );
     }
   }

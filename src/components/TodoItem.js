@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 
 export const ENDPOINT = "https://tc-todo-2022.herokuapp.com/todos";
-export function TodoItem({ todo, onTodoUpdated, onTodoDeleted }) {
+export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
   const [editing, setEditing] = useState(false);
-  let inputRef = useRef();
+  let titleInputRef = useRef();
+  let detailsInputRef = useRef();
   return (
     <>
       <li className={todo.completed ? "completed" : "pending"}>
@@ -16,8 +17,18 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted }) {
             {todo.title}
           </span>
         ) : (
-          <input type="text" defaultValue={todo.title} ref={inputRef} />
+          <>
+            <input type="text" defaultValue={todo.title} ref={titleInputRef} />
+
+            <textarea
+              cols={50}
+              rows={3}
+              defaultValue={todo.details}
+              ref={detailsInputRef}
+            />
+          </>
         )}
+        <p>{todo.details}</p>
       </li>
 
       {!editing ? (
@@ -42,7 +53,11 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted }) {
           </button>
           <button
             onClick={() => {
-              onTodoUpdated({ ...todo, title: inputRef.current.value });
+              onTodoUpdated({
+                ...todo,
+                title: titleInputRef.current.value,
+                details: detailsInputRef.current.value,
+              });
               setEditing((e) => false);
             }}
           >
