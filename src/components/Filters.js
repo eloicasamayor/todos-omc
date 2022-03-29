@@ -20,7 +20,11 @@ export function Filters({
         {filters.searchquery !== 0 && (
           <>
             <button
-              onClick={() => (searchInputRef.current.value = "")}
+              type="button"
+              onClick={() => {
+                searchInputRef.current.value = "";
+                onSearch();
+              }}
               title="clear search"
             >
               X

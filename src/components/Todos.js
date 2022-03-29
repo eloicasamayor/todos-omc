@@ -41,8 +41,6 @@ export function Todos() {
   };
 
   const onSearch = (e) => {
-    console.log("preventDefault");
-    e.preventDefault();
     onFilterTodos(searchInputRef.current.value);
   };
   const searchInputRef = useRef();

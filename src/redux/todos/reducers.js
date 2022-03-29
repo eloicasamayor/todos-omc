@@ -6,7 +6,6 @@ export function reduceTodos(state = initialState, action) {
     case REPLACE_TODOS: {
       return action.todos;
     }
-
     case ADD_TODO:
       return [...state, action.todo];
     case UPDATE_TODO: {
@@ -16,10 +15,6 @@ export function reduceTodos(state = initialState, action) {
     }
     case DELETE_TODO:
       return state.filter((todo) => todo.id !== action.todo.id);
-
-    //aixo aniria a un reducer a part reduceFilTER
-    // i també, les best practices seria fer unes accions a part també
-    //i combineReducers dels de reduceTodos i reduceFilter.
 
     default:
       return state;
