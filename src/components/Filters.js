@@ -4,8 +4,10 @@ export function Filters({
   filters,
   caseSensitiveCheckbox,
   onCaseSensitiveChanged,
-  onlyUncompletedTodos,
-  onOnlyUncompletedChanged,
+  seeUncompletedTodosCheckbox,
+  onSeeUncompletedChanged,
+  seeCompletedTodosCheckbox,
+  onSeeCompletedChanged,
 }) {
   return (
     <>
@@ -17,7 +19,7 @@ export function Filters({
           onChange={onSearch}
           placeholder="search todos"
         />
-        {filters.searchquery !== 0 && (
+        {filters.searchquery !== "" && (
           <>
             <button
               type="button"
@@ -45,11 +47,22 @@ export function Filters({
         <label>
           <input
             type="checkbox"
+            defaultChecked={filters.seeUncompleted}
             value="only uncompleted todos"
-            ref={onlyUncompletedTodos}
-            onChange={(e) => onOnlyUncompletedChanged(e)}
+            ref={seeUncompletedTodosCheckbox}
+            onChange={(e) => onSeeUncompletedChanged(e)}
           />
-          Only uncompleted todos
+          See uncompleted todos
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            defaultChecked={filters.seeCompleted}
+            value="only uncompleted todos"
+            ref={seeCompletedTodosCheckbox}
+            onChange={(e) => onSeeCompletedChanged(e)}
+          />
+          See completed todos
         </label>
       </form>
     </>

@@ -1,5 +1,15 @@
-import { CASE_SENSITIVE, SEARCH, ONLY_UNCOMPLETED } from "./actions";
-const initialState = { searchquery: "", casesensitive: false };
+import {
+  CASE_SENSITIVE,
+  SEARCH,
+  SEE_UNCOMPLETED,
+  SEE_COMPLETED,
+} from "./actions";
+const initialState = {
+  searchquery: "",
+  casesensitive: false,
+  seeUncompleted: true,
+  seeCompleted: true,
+};
 export function reduceFilters(state = initialState, action) {
   switch (action.type) {
     case SEARCH: {
@@ -8,8 +18,10 @@ export function reduceFilters(state = initialState, action) {
     }
     case CASE_SENSITIVE:
       return { ...state, casesensitive: action.casesensitive };
-    case ONLY_UNCOMPLETED:
-      return { ...state, onlyUncompleted: action.onlyUncompleted };
+    case SEE_UNCOMPLETED:
+      return { ...state, seeUncompleted: action.seeUncompleted };
+    case SEE_COMPLETED:
+      return { ...state, seeCompleted: action.seeCompleted };
 
     default:
       return state;

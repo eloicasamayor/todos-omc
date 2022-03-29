@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   caseSensitiveSearchFilter,
   searchQueryFilter,
-  onlyUncompletedFilter,
+  seeUncompletedFilter,
+  seeCompletedFilter,
 } from "../redux/filters/actions";
 import { Filters } from "./Filters";
 
@@ -36,8 +37,11 @@ export function Todos() {
   const onCaseSensitiveChanged = (e) => {
     dispatch(caseSensitiveSearchFilter(e.target.checked));
   };
-  const onOnlyUncompletedChanged = (e) => {
-    dispatch(onlyUncompletedFilter(e.target.checked));
+  const onSeeUncompletedChanged = (e) => {
+    dispatch(seeUncompletedFilter(e.target.checked));
+  };
+  const onSeeCompletedChanged = (e) => {
+    dispatch(seeCompletedFilter(e.target.checked));
   };
 
   const onSearch = (e) => {
@@ -45,7 +49,8 @@ export function Todos() {
   };
   const searchInputRef = useRef();
   const caseSensitiveSearchChechbox = useRef();
-  const onlyUncompletedCheckbox = useRef();
+  const seeUncompletedCheckbox = useRef();
+  const seeCompletedCheckbox = useRef();
   return (
     <div className="App">
       {/*  <button onClick={loadTodos}>Refresh</button> */}
@@ -56,8 +61,10 @@ export function Todos() {
           searchInputRef={searchInputRef}
           caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
           onCaseSensitiveChanged={onCaseSensitiveChanged}
-          onlyUncompletedCheckbox={onlyUncompletedCheckbox}
-          onOnlyUncompletedChanged={onOnlyUncompletedChanged}
+          seeUncompletedCheckbox={seeUncompletedCheckbox}
+          onSeeUncompletedChanged={onSeeUncompletedChanged}
+          seeCompletedCheckbox={seeCompletedCheckbox}
+          onSeeCompletedChanged={onSeeCompletedChanged}
         />
         <AfegirTodo onAddTodo={onAddTodo} />
       </aside>

@@ -13,10 +13,18 @@ export function caseSensitiveSearchFilter(casesensitive) {
   };
 }
 
-export const ONLY_UNCOMPLETED = "filters/ONLY_UNCOMPLETED";
-export function onlyUncompletedFilter(onlyUncompleted) {
+export const SEE_UNCOMPLETED = "filters/SEE_UNCOMPLETED";
+export function seeUncompletedFilter(seeUncompleted) {
   return {
-    type: ONLY_UNCOMPLETED,
-    onlyUncompleted: onlyUncompleted,
+    type: SEE_UNCOMPLETED,
+    seeUncompleted: seeUncompleted,
+  };
+}
+
+export const SEE_COMPLETED = "filters/SEE_COMPLETED";
+export function seeCompletedFilter(seeCompleted) {
+  return {
+    type: SEE_COMPLETED,
+    seeCompleted: seeCompleted,
   };
 }

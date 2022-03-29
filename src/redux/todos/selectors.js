@@ -21,7 +21,10 @@ export function selectTodos(state) {
       );
     }
   }
-  if (state.filters.onlyUncompleted) {
+  if (!state.filters.seeUncompleted) {
+    todos = todos.filter((t) => t.completed === true);
+  }
+  if (!state.filters.seeCompleted) {
     todos = todos.filter((t) => t.completed === false);
   }
   return todos;
