@@ -1,24 +1,18 @@
 import { useRef, useState } from "react";
 
 export const ENDPOINT = "https://tc-todo-2022.herokuapp.com/todos";
-export function TodoItem({
-  todo,
-  onTodoUpdated,
-  onTodoDeleted,
-  filters,
-  searching,
-}) {
+export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
   const [editing, setEditing] = useState(false);
   let titleInputRef = useRef();
   let detailsInputRef = useRef();
 
   const highlightText = (text) => {
     let highlight = filters.searchquery;
-
     const parts = text.split(new RegExp(`(${highlight})`, "gi"));
     let partsToCompare = [...parts];
-    if (filters.casesensitive) {
+    if (!filters.casesensitive) {
       partsToCompare = parts.map((p) => p.toLowerCase());
+      highlight = highlight.toLowerCase();
     }
     return (
       <p>
@@ -37,7 +31,7 @@ export function TodoItem({
               onTodoUpdated({ ...todo, completed: !todo.completed });
             }}
           >
-            {searching ? (
+            {filters.searchquery !== "" ? (
               <>
                 {highlightText(todo.title)}
                 {highlightText(todo.details)}

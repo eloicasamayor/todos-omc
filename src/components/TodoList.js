@@ -1,15 +1,9 @@
 import { TodoItem } from "./TodoItem";
 
-export function TodoList({
-  todos,
-  onTodoUpdated,
-  onTodoDeleted,
-  searching,
-  filters,
-}) {
+export function TodoList({ todos, onTodoUpdated, onTodoDeleted, filters }) {
   return (
     <>
-      {searching ? (
+      {filters.searchquery !== "" ? (
         <h1>
           Search results for "<mark>{filters.searchquery}</mark>"
         </h1>
@@ -26,7 +20,6 @@ export function TodoList({
             todo={todo}
             onTodoUpdated={onTodoUpdated}
             onTodoDeleted={onTodoDeleted}
-            searching={searching}
             filters={filters}
           />
         ))}

@@ -1,10 +1,9 @@
 export function Filters({
   onSearch,
   searchInputRef,
-  searching,
+  filters,
   caseSensitiveCheckbox,
   onCaseSensitiveChanged,
-  defaultCaseSensitiveChecked,
   onlyUncompletedTodos,
   onOnlyUncompletedChanged,
 }) {
@@ -18,7 +17,7 @@ export function Filters({
           onChange={onSearch}
           placeholder="search todos"
         />
-        {searching && (
+        {filters.searchquery !== 0 && (
           <>
             <button
               onClick={() => (searchInputRef.current.value = "")}
@@ -29,7 +28,7 @@ export function Filters({
             <label>
               <input
                 type="checkbox"
-                defaultChecked={defaultCaseSensitiveChecked}
+                defaultChecked={filters.casesensitive}
                 value="aA"
                 title="case sensitive?"
                 ref={caseSensitiveCheckbox}

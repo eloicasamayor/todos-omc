@@ -1,5 +1,5 @@
 import { AfegirTodo } from "./AfegirTodo";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { TodoList } from "./TodoList";
 import {
   requestUpdateTodo,
@@ -41,25 +41,23 @@ export function Todos() {
   };
 
   const onSearch = (e) => {
+    console.log("preventDefault");
     e.preventDefault();
     onFilterTodos(searchInputRef.current.value);
-    setSearching(() => searchInputRef.current.value !== "");
   };
   const searchInputRef = useRef();
   const caseSensitiveSearchChechbox = useRef();
   const onlyUncompletedCheckbox = useRef();
-  const [searching, setSearching] = useState(false);
   return (
     <div className="App">
       {/*  <button onClick={loadTodos}>Refresh</button> */}
       <aside>
         <Filters
+          filters={filters}
           onSearch={onSearch}
           searchInputRef={searchInputRef}
-          searching={searching}
           caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
           onCaseSensitiveChanged={onCaseSensitiveChanged}
-          defaultCaseSensitiveChecked={filters.casesensitive}
           onlyUncompletedCheckbox={onlyUncompletedCheckbox}
           onOnlyUncompletedChanged={onOnlyUncompletedChanged}
         />
@@ -70,7 +68,6 @@ export function Todos() {
           todos={todos}
           onTodoUpdated={onTodoUpdated}
           onTodoDeleted={onTodoDeleted}
-          searching={searching}
           filters={filters}
         />
       </main>
