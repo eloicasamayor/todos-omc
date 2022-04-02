@@ -1,6 +1,6 @@
 {
-  "homepage": "https://eloicasamayor.github.io/todo-list-redux-rest/",
-  "name": "todo-with-rest-redux",
+  "homepage": "https://eloicasamayor.github.io/todos-omc/",
+  "name": "todos-omc",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

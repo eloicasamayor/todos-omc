@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-export const ENDPOINT = "https://tc-todo-2022.herokuapp.com/todos";
+export const ENDPOINT = "https://todos-server-ohmycode.herokuapp.com/todos";
 export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
   const [editing, setEditing] = useState(false);
   let titleInputRef = useRef();

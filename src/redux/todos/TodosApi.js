@@ -1,4 +1,4 @@
-const ENDPOINT = "https://tc-todo-2022.herokuapp.com/todos";
+const ENDPOINT = "https://todos-server-ohmycode.herokuapp.com/todos";
 export function getTodos() {
   return fetch(ENDPOINT).then((response) => response.json());
   //.then((json) => setLlistaTodos(json));
