@@ -4,7 +4,7 @@ export function AfegirTodo({ onAddTodo }) {
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [newTodo, setNewTodo] = useState(initialValues);
   const titleInputRef = useRef();
-  const detailsInputRef = useRef();
+  const useridInputRef = useRef();
   const completedSelectRef = useRef();
   const handleChange = () => {
     setNewTodo(
@@ -12,7 +12,7 @@ export function AfegirTodo({ onAddTodo }) {
 
       {
         title: titleInputRef.current.value,
-        details: parseInt(detailsInputRef.current.value),
+        userid: parseInt(useridInputRef.current.value),
         completed: completedSelectRef.current.value === "true",
       }
     );
@@ -26,9 +26,9 @@ export function AfegirTodo({ onAddTodo }) {
         onSubmit={(e) => {
           e.preventDefault();
           const title = titleInputRef.current.value;
-          const details = detailsInputRef.current.value;
+          const userid = useridInputRef.current.value;
           titleInputRef.current.value = "";
-          detailsInputRef.current.value = "";
+          useridInputRef.current.value = "";
           //postNewTodo(title).then((json) => onTodoAdded(json));
           onAddTodo({ ...newTodo });
           setNewTodoTitle((t) => "");
@@ -50,7 +50,7 @@ export function AfegirTodo({ onAddTodo }) {
           <input
             name="userId"
             type="number"
-            ref={detailsInputRef}
+            ref={useridInputRef}
             onChange={(e) => handleChange(e)}
           ></input>
         </div>

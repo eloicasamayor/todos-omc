@@ -4,7 +4,7 @@ export const ENDPOINT = "https://todos-server-ohmycode.herokuapp.com/todos";
 export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
   const [editing, setEditing] = useState(false);
   let titleInputRef = useRef();
-  let detailsInputRef = useRef();
+  let useridInputRef = useRef();
 
   const highlightText = (text) => {
     let highlight = filters.searchquery;
@@ -34,12 +34,12 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             {filters.searchquery !== "" ? (
               <>
                 {highlightText(todo.title)}
-                {highlightText(todo.details)}
+                {highlightText(todo.userid)}
               </>
             ) : (
               <>
                 <p>{todo.title}</p>
-                <p>{todo.details}</p>
+                <p>{todo.userid}</p>
               </>
             )}
           </span>
@@ -50,8 +50,8 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             <textarea
               cols={50}
               rows={3}
-              defaultValue={todo.details}
-              ref={detailsInputRef}
+              defaultValue={todo.userid}
+              ref={useridInputRef}
             />
           </>
         )}
@@ -89,7 +89,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
               onTodoUpdated({
                 ...todo,
                 title: titleInputRef.current.value,
-                details: detailsInputRef.current.value,
+                userid: useridInputRef.current.value,
               });
               setEditing((e) => false);
             }}
