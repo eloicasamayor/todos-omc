@@ -1,40 +1,40 @@
 import { useRef, useState } from "react";
 export function AfegirTodo({ onAddTodo }) {
   const initialValues = { title: "", userId: "", completed: false };
-  const [newTodoTitle, setNewTodoTitle] = useState("");
+  const [todoValidationResult, setTodoValidationResult] = useState(false);
   const [newTodo, setNewTodo] = useState(initialValues);
   const titleInputRef = useRef();
   const useridInputRef = useRef();
   const completedSelectRef = useRef();
   const handleChange = () => {
-    setNewTodo(
-      /* { ...newTodo, [name]: value } */
-
-      {
+    let titleLenght = titleInputRef.current.value.length;
+    let userId = parseInt(useridInputRef.current.value);
+    if (titleLenght === 0 || titleLenght > 10) {
+      setTodoValidationResult((n) => false);
+    } else if (userId < 0 || !userId) {
+      setTodoValidationResult((n) => false);
+    } else {
+      setNewTodo({
         title: titleInputRef.current.value,
         userid: parseInt(useridInputRef.current.value),
         completed: completedSelectRef.current.value === "true",
-      }
-    );
-    // form validation here
-    setNewTodoTitle("111");
+      });
+      setTodoValidationResult((n) => true);
+    }
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("handling submit...");
+    titleInputRef.current.value = "";
+    useridInputRef.current.value = "";
+    onAddTodo({ ...newTodo });
+  };
+  const validate = (values) => {};
   return (
     <>
       <h2>Add a todo</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const title = titleInputRef.current.value;
-          const userid = useridInputRef.current.value;
-          titleInputRef.current.value = "";
-          useridInputRef.current.value = "";
-          //postNewTodo(title).then((json) => onTodoAdded(json));
-          onAddTodo({ ...newTodo });
-          setNewTodoTitle((t) => "");
-        }}
-        id="new-todo-form"
-      >
+      <pre>{JSON.stringify(newTodo)}</pre>
+      <form onSubmit={(e) => handleSubmit(e)} id="new-todo-form">
         <div>
           <label htmlFor="title">Title</label>
           <input
@@ -67,7 +67,7 @@ export function AfegirTodo({ onAddTodo }) {
             <option value={false}>Not completed</option>
           </select>
         </div>
-        {newTodoTitle !== "" && <input type="submit" value="add"></input>}
+        {todoValidationResult && <input type="submit" value="add"></input>}
       </form>
     </>
   );
