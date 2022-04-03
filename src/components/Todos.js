@@ -29,7 +29,9 @@ export function Todos() {
   }, []);
 
   const loadTodos = () => dispatch(requestTodos());
-  const onAddTodo = (todo) => dispatch(requestAddTodo(todo));
+  const onAddTodo = (todo) => {
+    dispatch(requestAddTodo(todo));
+  };
   const onTodoUpdated = (updatedTodo) =>
     dispatch(requestUpdateTodo(updatedTodo));
   const onTodoDeleted = (todo) => dispatch(requestDeleteTodo(todo));

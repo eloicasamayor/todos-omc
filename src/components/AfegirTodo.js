@@ -1,14 +1,21 @@
 import { useRef, useState } from "react";
 export function AfegirTodo({ onAddTodo }) {
-  const initialValues = { title: "", userId: "", completed: "" };
+  const initialValues = { title: "", userId: "", completed: false };
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [newTodo, setNewTodo] = useState(initialValues);
   const titleInputRef = useRef();
   const detailsInputRef = useRef();
-  const handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
-    const { name, value } = e.target;
-    setNewTodo({ ...newTodo, [name]: value });
+  const completedSelectRef = useRef();
+  const handleChange = () => {
+    setNewTodo(
+      /* { ...newTodo, [name]: value } */
+
+      {
+        title: titleInputRef.current.value,
+        details: parseInt(detailsInputRef.current.value),
+        completed: completedSelectRef.current.value === "true",
+      }
+    );
     // form validation here
     setNewTodoTitle("111");
   };
@@ -23,39 +30,43 @@ export function AfegirTodo({ onAddTodo }) {
           titleInputRef.current.value = "";
           detailsInputRef.current.value = "";
           //postNewTodo(title).then((json) => onTodoAdded(json));
-          onAddTodo({ title, details });
+          onAddTodo({ ...newTodo });
           setNewTodoTitle((t) => "");
         }}
         id="new-todo-form"
       >
-        <input
-          name="title"
-          type="text"
-          placeholder="New todo title"
-          ref={titleInputRef}
-          onChange={(e) => handleChange(e)}
-        ></input>
-        {/* <textarea
-          cols={50}
-          rows={3}
-          defaultValue="new todo details"
-          ref={detailsInputRef}
-        /> */}
-        <input
-          name="userId"
-          type="number"
-          ref={detailsInputRef}
-          onChange={(e) => handleChange(e)}
-        ></input>
-        <label>Create todo as:</label>
-        <select
-          name="completed"
-          id="completed"
-          onChange={(e) => handleChange(e)}
-        >
-          <option value="true">Completed</option>
-          <option value="false">Not completed</option>
-        </select>
+        <div>
+          <label htmlFor="title">Title</label>
+          <input
+            name="title"
+            type="text"
+            placeholder="New todo title"
+            ref={titleInputRef}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor="userId">user Id</label>
+          <input
+            name="userId"
+            type="number"
+            ref={detailsInputRef}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor="completed">Completed?</label>
+          <select
+            ref={completedSelectRef}
+            name="completed"
+            id="completed"
+            defaultValue={false}
+            onChange={(e) => handleChange(e)}
+          >
+            <option value={true}>Completed</option>
+            <option value={false}>Not completed</option>
+          </select>
+        </div>
         {newTodoTitle !== "" && <input type="submit" value="add"></input>}
       </form>
     </>
