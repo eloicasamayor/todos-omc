@@ -10,61 +10,82 @@ export function Filters({
   onSeeCompletedChanged,
 }) {
   return (
-    <>
+    <div className="card card-body">
       <h2>Filter todos</h2>
       <form onSubmit={onSearch}>
-        <input
-          type="text"
-          ref={searchInputRef}
-          onChange={onSearch}
-          placeholder="search todos"
-        />
-        {filters.searchquery !== "" && (
-          <>
-            <button
-              type="button"
-              onClick={() => {
-                searchInputRef.current.value = "";
-                onSearch();
-              }}
-              title="clear search"
-            >
-              X
-            </button>
-            <label>
+        <div>
+          <input
+            className="form-control"
+            type="text"
+            ref={searchInputRef}
+            onChange={onSearch}
+            placeholder="search todos"
+          />
+          {filters.searchquery !== "" && (
+            <div>
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={() => {
+                  searchInputRef.current.value = "";
+                  onSearch();
+                }}
+                title="clear search"
+              >
+                X
+              </button>
+
               <input
+                id="case-sensitive-checkbox"
                 type="checkbox"
+                className="btn-check"
                 defaultChecked={filters.casesensitive}
                 value="aA"
                 title="case sensitive?"
                 ref={caseSensitiveCheckbox}
                 onChange={(e) => onCaseSensitiveChanged(e)}
               />
-              aA
-            </label>
-          </>
-        )}
-        <label>
-          <input
-            type="checkbox"
-            defaultChecked={filters.seeUncompleted}
-            value="only uncompleted todos"
-            ref={seeUncompletedTodosCheckbox}
-            onChange={(e) => onSeeUncompletedChanged(e)}
-          />
-          See uncompleted todos
+              <label
+                htmlFor="case-sensitive-checkbox"
+                className="btn btn-outline-primary"
+              >
+                aA
+              </label>
+            </div>
+          )}
+        </div>
+        <input
+          type="checkbox"
+          id="see-uncompleted-todos"
+          className="btn-check"
+          defaultChecked={filters.seeUncompleted}
+          value="only uncompleted todos"
+          ref={seeUncompletedTodosCheckbox}
+          onChange={(e) => onSeeUncompletedChanged(e)}
+        />
+        <label
+          className="btn btn-outline-primary"
+          htmlFor="see-uncompleted-todos"
+        >
+          Uncompleted todos
         </label>
-        <label>
-          <input
-            type="checkbox"
-            defaultChecked={filters.seeCompleted}
-            value="only uncompleted todos"
-            ref={seeCompletedTodosCheckbox}
-            onChange={(e) => onSeeCompletedChanged(e)}
-          />
-          See completed todos
+
+        <input
+          htmlFor="see-completed-todos"
+          type="checkbox"
+          className="btn-check"
+          defaultChecked={filters.seeCompleted}
+          value="only uncompleted todos"
+          ref={seeCompletedTodosCheckbox}
+          onChange={(e) => onSeeCompletedChanged(e)}
+        />
+        <label
+          className="btn btn-outline-primary"
+          htmlFor="see-completed-todos"
+        >
+          Completed todos
         </label>
       </form>
-    </>
+    </div>
   );
 }

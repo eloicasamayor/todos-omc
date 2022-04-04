@@ -13,7 +13,7 @@ export function TodoList({ todos, onTodoUpdated, onTodoDeleted, filters }) {
         </>
       )}
       {filters.onlyUncompleted && <h2>(showing only uncompleted)</h2>}
-      <ul>
+      <ul className="list-group">
         {todos.map((todo, i) => (
           <TodoItem
             key={i}

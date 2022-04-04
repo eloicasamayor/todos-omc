@@ -31,44 +31,58 @@ export function AfegirTodo({ onAddTodo }) {
   };
   const validate = (values) => {};
   return (
-    <>
+    <div className="card card-body">
       <h2>Add a todo</h2>
       <pre>{JSON.stringify(newTodo)}</pre>
       <form onSubmit={(e) => handleSubmit(e)} id="new-todo-form">
-        <div>
-          <label htmlFor="title">Title</label>
-          <input
-            name="title"
-            type="text"
-            placeholder="New todo title"
-            ref={titleInputRef}
-            onChange={(e) => handleChange(e)}
-          ></input>
+        <div className="row">
+          <div className="col">
+            <label htmlFor="title">Title</label>
+            <input
+              className="form-control"
+              name="title"
+              type="text"
+              placeholder="New todo title"
+              ref={titleInputRef}
+              onChange={(e) => handleChange(e)}
+              required
+            ></input>
+            <small className="form-text text-muted">Un text petit a sota</small>
+          </div>
+          <div className="col">
+            <label htmlFor="userId">user Id</label>
+            <input
+              className="form-control"
+              name="userId"
+              type="number"
+              min="0"
+              ref={useridInputRef}
+              onChange={(e) => handleChange(e)}
+              required
+            ></input>
+            <small className="form-text text-muted">Un text petit a sota</small>
+          </div>
+          <div className="col">
+            <label htmlFor="completed">Completed?</label>
+            <select
+              className="form-control"
+              ref={completedSelectRef}
+              name="completed"
+              id="completed"
+              defaultValue={false}
+              onChange={(e) => handleChange(e)}
+              required
+            >
+              <option value={true}>Completed</option>
+              <option value={false}>Not completed</option>
+            </select>
+            <small className="form-text text-muted">Un text petit a sota</small>
+          </div>
         </div>
-        <div>
-          <label htmlFor="userId">user Id</label>
-          <input
-            name="userId"
-            type="number"
-            ref={useridInputRef}
-            onChange={(e) => handleChange(e)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="completed">Completed?</label>
-          <select
-            ref={completedSelectRef}
-            name="completed"
-            id="completed"
-            defaultValue={false}
-            onChange={(e) => handleChange(e)}
-          >
-            <option value={true}>Completed</option>
-            <option value={false}>Not completed</option>
-          </select>
-        </div>
-        {todoValidationResult && <input type="submit" value="add"></input>}
+        {todoValidationResult && (
+          <input type="submit" className="btn btn-primary" value="add"></input>
+        )}
       </form>
-    </>
+    </div>
   );
 }

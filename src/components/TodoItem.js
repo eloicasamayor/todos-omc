@@ -23,8 +23,14 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
     );
   };
   return (
-    <>
-      <li className={todo.completed ? "completed" : "pending"}>
+    <div>
+      <li
+        className={
+          todo.completed
+            ? "list-group-item completed"
+            : "list-group-item pending"
+        }
+      >
         {!editing ? (
           <span
             onClick={() => {
@@ -33,21 +39,28 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
           >
             {filters.searchquery !== "" ? (
               <>
-                {highlightText(todo.title)}
-                {highlightText(todo.userid)}
+                <h4 className="card-title">{highlightText(todo.title)}</h4>
+                <p>{todo.userid}</p>
               </>
             ) : (
               <>
-                <p>{todo.title}</p>
-                <p>{todo.userid}</p>
+                <h4 className="card-title">{todo.title}</h4>
+                <p>User ID: {todo.userid}</p>
               </>
             )}
           </span>
         ) : (
           <>
-            <input type="text" defaultValue={todo.title} ref={titleInputRef} />
+            <input
+              className="form-control"
+              type="text"
+              defaultValue={todo.title}
+              ref={titleInputRef}
+            />
 
-            <textarea
+            <input
+              type="number"
+              className="form-control"
               cols={50}
               rows={3}
               defaultValue={todo.userid}
@@ -55,49 +68,57 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             />
           </>
         )}
+        {!editing ? (
+          <div class="btn-group">
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                setEditing((e) => true);
+              }}
+            >
+              edit
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => onTodoDeleted(todo)}
+            >
+              delete
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                onTodoUpdated({ ...todo, completed: !todo.completed });
+              }}
+            >
+              {todo.completed ? "mark as uncompleted" : "mark as completed"}
+            </button>
+          </div>
+        ) : (
+          <div class="btn-group">
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                setEditing((e) => false);
+              }}
+            >
+              cancel
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                onTodoUpdated({
+                  ...todo,
+                  title: titleInputRef.current.value,
+                  userid: useridInputRef.current.value,
+                });
+                setEditing((e) => false);
+              }}
+            >
+              confirm edit
+            </button>
+          </div>
+        )}
       </li>
-
-      {!editing ? (
-        <>
-          <button
-            onClick={() => {
-              setEditing((e) => true);
-            }}
-          >
-            edit
-          </button>
-          <button onClick={() => onTodoDeleted(todo)}>delete</button>
-          <button
-            onClick={() => {
-              onTodoUpdated({ ...todo, completed: !todo.completed });
-            }}
-          >
-            {todo.completed ? "mark as uncompleted" : "mark as completed"}
-          </button>
-        </>
-      ) : (
-        <>
-          <button
-            onClick={() => {
-              setEditing((e) => false);
-            }}
-          >
-            cancel
-          </button>
-          <button
-            onClick={() => {
-              onTodoUpdated({
-                ...todo,
-                title: titleInputRef.current.value,
-                userid: useridInputRef.current.value,
-              });
-              setEditing((e) => false);
-            }}
-          >
-            confirm edit
-          </button>
-        </>
-      )}
-    </>
+    </div>
   );
 }
