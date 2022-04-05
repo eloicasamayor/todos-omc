@@ -77,23 +77,25 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
                 setEditing((e) => true);
               }}
             >
-              edit
+              quick edit
             </button>
+            <Link className="btn btn-secondary" to={`/edit/${todo.id}`}>
+              edit page
+            </Link>
             <button
-              className="btn btn-secondary"
+              className="btn btn-danger"
               onClick={() => onTodoDeleted(todo)}
             >
               delete
             </button>
             <button
-              className="btn btn-secondary"
+              className={todo.completed ? "btn bg-warning" : "btn bg-success"}
               onClick={() => {
                 onTodoUpdated({ ...todo, completed: !todo.completed });
               }}
             >
               {todo.completed ? "mark as uncompleted" : "mark as completed"}
             </button>
-            <Link to={`/edit/${todo.id}`}>edit</Link>
           </div>
         ) : (
           <div className="btn-group">

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { requestTodos } from "../redux/todos";
 import { useEffect } from "react";
-
+import { requestUpdateTodo } from "../redux/todos";
 export function Edit() {
   const dispatch = useDispatch();
   const loadTodos = () => dispatch(requestTodos());
@@ -19,12 +19,12 @@ export function Edit() {
 
   useEffect(() => {
     loadTodos();
-  });
+  }, []);
 
   if (typeof todo !== "undefined") {
     return (
       <div>
-        <h2>Todo id: {params.todoId}</h2>
+        <h2>Edit the todo</h2>
         <form>
           <div className="col">
             <label htmlFor="completed">title</label>
@@ -63,16 +63,22 @@ export function Edit() {
           </div>
           <button
             className="btn btn-secondary"
-            /* onClick={() => {
-              onTodoUpdated({
-                ...todo,
-                title: titleInputRef.current.value,
-                userid: useridInputRef.current.value,
-              });
-              setEditing((e) => false);
-            }} */
-          ></button>
-          <button className="btn btn-secondary">cancel</button>
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(
+                requestUpdateTodo({
+                  ...todo,
+                  title: titleInputRef.current.value,
+                  userid: useridInputRef.current.value,
+                })
+              );
+            }}
+          >
+            edit
+          </button>
+          <Link to="/" className="btn btn-secondary">
+            cancel
+          </Link>
         </form>
       </div>
     );

@@ -22,7 +22,7 @@ export function Todos() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const intervalID = setInterval(() => loadTodos(), 60000);
+    const intervalID = setInterval(() => loadTodos(), 600000);
     return () => clearInterval(intervalID);
   }, []);
 
