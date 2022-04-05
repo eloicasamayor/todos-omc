@@ -3,7 +3,10 @@ export function AfegirTodo({ onAddTodo }) {
   const initialValues = { title: "", userId: "", completed: false };
 
   const [todoValidationResult, setTodoValidationResult] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({
+    titleError: "",
+    userIdError: "",
+  });
   const [newTodo, setNewTodo] = useState(initialValues);
 
   const titleInputRef = useRef();
@@ -11,36 +14,36 @@ export function AfegirTodo({ onAddTodo }) {
   const completedSelectRef = useRef();
 
   const handleChange = () => {
+    setNewTodo({
+      title: titleInputRef.current.value,
+      userid: parseInt(useridInputRef.current.value),
+      completed: completedSelectRef.current.value === "true",
+    });
+    validate();
+  };
+  const validate = () => {
     let titleLenght = titleInputRef.current.value.length;
     let userId = parseInt(useridInputRef.current.value);
-    
-    setNewTodo({
-        title: titleInputRef.current.value,
-        userid: parseInt(useridInputRef.current.value),
-        completed: completedSelectRef.current.value === "true",
-      });
-    setFormErrors(validate())
+    let titleError = "";
+    let userIdError = "";
     if (titleLenght === 0) {
-      setTodoValidationResult((n) => false);
-      setFormErrors({ titleError: "toto must have a title" });
-    } else if (titleLenght > 10) {
-      setTodoValidationResult((n) => false);
-      setFormErrors({ titleError: "title must be less than 200 characters" });
-    } else if (userId < 0 || !userId) {
-      setTodoValidationResult((n) => false);
-      setFormErrors({ userIdError: "userId can't be negative" });
-    } else {
-      setFormErrors({ titleError: "", userIdError: "" });
-      
+      titleError = "The title cannot be null";
+    } else if (titleLenght > 200) {
+      titleError = "title must be less than 200 characters";
+    }
+    if (userId < 0) {
+      userIdError = "userId can't be negative";
+    } else if (!userId) {
+      userIdError = "userId cannot be null";
+    }
+    setFormErrors({ titleError: titleError, userIdError: userIdError });
+    if (titleError === "" && userIdError === "") {
       setTodoValidationResult((n) => true);
+    } else {
+      setTodoValidationResult((n) => false);
     }
   };
-  const validate = (values)=>{
-    const errors = {};
-    let titleLenght = titleInputRef.current.value.length;
-    if(values.)
-    return errors;
-  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("handling submit...");
@@ -52,7 +55,6 @@ export function AfegirTodo({ onAddTodo }) {
   return (
     <div className="card card-body">
       <h2>Add a todo</h2>
-      <pre>{JSON.stringify(newTodo)}</pre>
       <form onSubmit={(e) => handleSubmit(e)} id="new-todo-form">
         <div className="row">
           <div className="col">
@@ -66,12 +68,12 @@ export function AfegirTodo({ onAddTodo }) {
               onChange={(e) => handleChange(e)}
               required
             ></input>
-            <small className="form-text text-muted">
+            <small className="form-text text-danger">
               {formErrors.titleError}
             </small>
           </div>
           <div className="col">
-            <label htmlFor="userId">user Id</label>
+            <label htmlFor="userId">user Id number</label>
             <input
               className="form-control"
               name="userId"
@@ -81,7 +83,7 @@ export function AfegirTodo({ onAddTodo }) {
               onChange={(e) => handleChange(e)}
               required
             ></input>
-            <small className="form-text text-muted">
+            <small className="form-text text-danger">
               {formErrors.userIdError}
             </small>
           </div>
@@ -99,14 +101,12 @@ export function AfegirTodo({ onAddTodo }) {
               <option value={true}>Completed</option>
               <option value={false}>Not completed</option>
             </select>
-            <small className="form-text text-muted">Un text petit a sota</small>
           </div>
         </div>
         {todoValidationResult && (
           <input type="submit" className="btn btn-primary" value="add"></input>
         )}
       </form>
-      <pre>{JSON.stringify(formErrors)}</pre>
     </div>
   );
 }

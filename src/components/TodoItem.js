@@ -69,7 +69,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
           </>
         )}
         {!editing ? (
-          <div class="btn-group">
+          <div className="btn-group">
             <button
               className="btn btn-secondary"
               onClick={() => {
@@ -94,7 +94,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             </button>
           </div>
         ) : (
-          <div class="btn-group">
+          <div className="btn-group">
             <button
               className="btn btn-secondary"
               onClick={() => {

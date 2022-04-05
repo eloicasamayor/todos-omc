@@ -1,6 +1,5 @@
-import { AfegirTodo } from "./AfegirTodo";
 import { useEffect, useRef } from "react";
-import { TodoList } from "./TodoList";
+import { TodoList, AfegirTodo, Filters } from "../components";
 import {
   requestUpdateTodo,
   requestAddTodo,
@@ -16,7 +15,6 @@ import {
   seeUncompletedFilter,
   seeCompletedFilter,
 } from "../redux/filters/actions";
-import { Filters } from "./Filters";
 
 export function Todos() {
   const todos = useSelector(selectTodos);

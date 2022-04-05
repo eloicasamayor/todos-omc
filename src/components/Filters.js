@@ -71,7 +71,7 @@ export function Filters({
         </label>
 
         <input
-          htmlFor="see-completed-todos"
+          id="see-completed-todos"
           type="checkbox"
           className="btn-check"
           defaultChecked={filters.seeCompleted}
