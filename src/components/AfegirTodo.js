@@ -1,27 +1,46 @@
 import { useRef, useState } from "react";
 export function AfegirTodo({ onAddTodo }) {
   const initialValues = { title: "", userId: "", completed: false };
+
   const [todoValidationResult, setTodoValidationResult] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
   const [newTodo, setNewTodo] = useState(initialValues);
+
   const titleInputRef = useRef();
   const useridInputRef = useRef();
   const completedSelectRef = useRef();
+
   const handleChange = () => {
     let titleLenght = titleInputRef.current.value.length;
     let userId = parseInt(useridInputRef.current.value);
-    if (titleLenght === 0 || titleLenght > 10) {
-      setTodoValidationResult((n) => false);
-    } else if (userId < 0 || !userId) {
-      setTodoValidationResult((n) => false);
-    } else {
-      setNewTodo({
+    
+    setNewTodo({
         title: titleInputRef.current.value,
         userid: parseInt(useridInputRef.current.value),
         completed: completedSelectRef.current.value === "true",
       });
+    setFormErrors(validate())
+    if (titleLenght === 0) {
+      setTodoValidationResult((n) => false);
+      setFormErrors({ titleError: "toto must have a title" });
+    } else if (titleLenght > 10) {
+      setTodoValidationResult((n) => false);
+      setFormErrors({ titleError: "title must be less than 200 characters" });
+    } else if (userId < 0 || !userId) {
+      setTodoValidationResult((n) => false);
+      setFormErrors({ userIdError: "userId can't be negative" });
+    } else {
+      setFormErrors({ titleError: "", userIdError: "" });
+      
       setTodoValidationResult((n) => true);
     }
   };
+  const validate = (values)=>{
+    const errors = {};
+    let titleLenght = titleInputRef.current.value.length;
+    if(values.)
+    return errors;
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("handling submit...");
@@ -29,7 +48,7 @@ export function AfegirTodo({ onAddTodo }) {
     useridInputRef.current.value = "";
     onAddTodo({ ...newTodo });
   };
-  const validate = (values) => {};
+
   return (
     <div className="card card-body">
       <h2>Add a todo</h2>
@@ -47,7 +66,9 @@ export function AfegirTodo({ onAddTodo }) {
               onChange={(e) => handleChange(e)}
               required
             ></input>
-            <small className="form-text text-muted">Un text petit a sota</small>
+            <small className="form-text text-muted">
+              {formErrors.titleError}
+            </small>
           </div>
           <div className="col">
             <label htmlFor="userId">user Id</label>
@@ -60,7 +81,9 @@ export function AfegirTodo({ onAddTodo }) {
               onChange={(e) => handleChange(e)}
               required
             ></input>
-            <small className="form-text text-muted">Un text petit a sota</small>
+            <small className="form-text text-muted">
+              {formErrors.userIdError}
+            </small>
           </div>
           <div className="col">
             <label htmlFor="completed">Completed?</label>
@@ -83,6 +106,7 @@ export function AfegirTodo({ onAddTodo }) {
           <input type="submit" className="btn btn-primary" value="add"></input>
         )}
       </form>
+      <pre>{JSON.stringify(formErrors)}</pre>
     </div>
   );
 }
