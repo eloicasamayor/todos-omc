@@ -21,6 +21,7 @@ export function selectTodos(state) {
   }
   return todos;
 }
+
 export function selectFilters(state) {
   return state.filters;
 }

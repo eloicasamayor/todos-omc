@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const ENDPOINT = "https://todos-server-ohmycode.herokuapp.com/todos";
 export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
@@ -92,6 +93,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             >
               {todo.completed ? "mark as uncompleted" : "mark as completed"}
             </button>
+            <Link to={`/edit/${todo.id}`}>edit</Link>
           </div>
         ) : (
           <div className="btn-group">
