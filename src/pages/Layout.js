@@ -1,10 +1,19 @@
 import { Outlet } from "react-router-dom";
+import { selectLogin } from "../redux/login/selectors";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export function Layout() {
+  const current_user = useSelector(selectLogin);
   return (
-    <div>
+    <div className="h-100">
       <header>
         <h1>Todo list</h1>
+        {current_user.username != null ? (
+          <p>{current_user.username}</p>
+        ) : (
+          <Link to="/">login</Link>
+        )}
       </header>
 
       <Outlet />

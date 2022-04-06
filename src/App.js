@@ -13,9 +13,9 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Todos />} />
+            <Route path="/todos" element={<Todos />} />
             <Route path="/edit/:todoId" element={<Edit />} />
-            <Route path="/login" element={<Login />} />
+            <Route index element={<Login />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
