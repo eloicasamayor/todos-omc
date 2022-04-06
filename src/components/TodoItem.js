@@ -1,11 +1,32 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 export const ENDPOINT = "https://todos-server-ohmycode.herokuapp.com/todos";
 export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
   const [editing, setEditing] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   let titleInputRef = useRef();
   let useridInputRef = useRef();
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const highlightText = (text) => {
     let highlight = filters.searchquery;
@@ -25,6 +46,31 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
   };
   return (
     <div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Delete todo modal"
+      >
+        <h4 className="card-title">Are you sure to delete the todo?</h4>
+        <h5 className="card-subtitle">This operation cannot be undone.</h5>
+        <hr />
+        <p className="text-center blockquote">
+          <del>{todo.title}</del>
+        </p>
+        <hr />
+        <div className="d-flex justify-content-between">
+          <button
+            className="btn btn-danger"
+            onClick={() => onTodoDeleted(todo)}
+          >
+            Yes! delete the todo
+          </button>
+          <button className="btn btn-secondary" onClick={() => closeModal()}>
+            cancel
+          </button>
+        </div>
+      </Modal>
       <li
         className={
           todo.completed
@@ -82,10 +128,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             <Link className="btn btn-secondary" to={`/edit/${todo.id}`}>
               edit page
             </Link>
-            <button
-              className="btn btn-danger"
-              onClick={() => onTodoDeleted(todo)}
-            >
+            <button className="btn btn-danger" onClick={() => openModal()}>
               delete
             </button>
             <button
