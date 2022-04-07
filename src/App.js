@@ -10,12 +10,12 @@ store.dispatch(requestTodos());
 export default function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/todos-omc">
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/todos" element={<Todos />} />
+            <Route index element={<Todos />} />
             <Route path="/edit/:todoId" element={<Edit />} />
-            <Route index element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

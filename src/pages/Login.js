@@ -1,12 +1,18 @@
-import { useDispatch } from "react-redux";
-import { loginUser } from "../redux/login/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { requestLoginUser } from "../redux/login/actions";
 import { useRef } from "react";
+import { selectLogin } from "../redux/login/selectors";
 export function Login() {
   const dispatch = useDispatch();
-  const onLoginUser = (user) => dispatch(loginUser(user));
+  const current_user = useSelector(selectLogin);
+  const onLoginUser = (user) => dispatch(requestLoginUser(user));
   const userInput = useRef();
   const passwordInput = useRef();
-  return (
+  function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+  }
+
+  return isEmpty(current_user) ? (
     <div className="Card mx-auto w-50">
       <h1>Login</h1>
       <form>
@@ -47,6 +53,36 @@ export function Login() {
           Sign in
         </button>
       </form>
+
+      <div className="toast" role="alert">
+        Wrong username or password :(
+      </div>
+    </div>
+  ) : (
+    <div className="Card mx-auto w-50">
+      <h2>Logged as </h2>
+      <p>
+        <b>username:</b> {current_user.username}
+      </p>
+      <p>
+        <b>user id:</b> {current_user._id}
+      </p>
+      <p>
+        <b>password:</b> {current_user.password}
+      </p>
+      <div style={{ height: "50px" }} className=" w-100"></div>
+      <button
+        type="button"
+        className="btn btn-primary btn-block mb-4"
+        onClick={() => {
+          onLoginUser({
+            username: "",
+            password: "",
+          });
+        }}
+      >
+        Log out
+      </button>
     </div>
   );
 }

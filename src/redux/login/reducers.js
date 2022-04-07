@@ -5,21 +5,20 @@ const initialState = {
   username: null,
   password: null,
 };
-export function reduceLogin(state = initialState, action) {
+export function reduceLogin(state = {}, action) {
   const inputUser = action.user;
   let selectedUser = {};
   switch (action.type) {
     case LOGIN_USER: {
-      console.log("inputUser", inputUser);
-      selectedUser = users.find(
+      /* selectedUser = users.find(
         (u) =>
           u.username === inputUser.username && u.password === inputUser.password
       );
-      console.log("selectedUser", selectedUser);
       if (!selectedUser) {
         selectedUser = {};
       }
-      return { ...selectedUser };
+      return { ...selectedUser }; */
+      return action.user;
     }
 
     default:

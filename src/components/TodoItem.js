@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
+import { useSelector } from "react-redux";
+import { selectLogin } from "../redux/login/selectors";
 
 const customStyles = {
   content: {
@@ -17,6 +19,7 @@ export const ENDPOINT = "https://todos-server-ohmycode.herokuapp.com/todos";
 export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
   const [editing, setEditing] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const current_user = useSelector(selectLogin);
   let titleInputRef = useRef();
   let useridInputRef = useRef();
 
@@ -115,54 +118,60 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
             />
           </>
         )}
-        {!editing ? (
+        {current_user._id === todo.userid && (
           <div className="btn-group">
-            <button
-              className="btn btn-secondary"
-              onClick={() => {
-                setEditing((e) => true);
-              }}
-            >
-              quick edit
-            </button>
-            <Link className="btn btn-secondary" to={`/edit/${todo.id}`}>
-              edit page
-            </Link>
-            <button className="btn btn-danger" onClick={() => openModal()}>
-              delete
-            </button>
-            <button
-              className={todo.completed ? "btn bg-warning" : "btn bg-success"}
-              onClick={() => {
-                onTodoUpdated({ ...todo, completed: !todo.completed });
-              }}
-            >
-              {todo.completed ? "mark as uncompleted" : "mark as completed"}
-            </button>
-          </div>
-        ) : (
-          <div className="btn-group">
-            <button
-              className="btn btn-secondary"
-              onClick={() => {
-                setEditing((e) => false);
-              }}
-            >
-              cancel
-            </button>
-            <button
-              className="btn btn-secondary"
-              onClick={() => {
-                onTodoUpdated({
-                  ...todo,
-                  title: titleInputRef.current.value,
-                  userid: useridInputRef.current.value,
-                });
-                setEditing((e) => false);
-              }}
-            >
-              confirm edit
-            </button>
+            {!editing ? (
+              <>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    setEditing((e) => true);
+                  }}
+                >
+                  quick edit
+                </button>
+                <Link className="btn btn-secondary" to={`/edit/${todo.id}`}>
+                  edit page
+                </Link>
+                <button className="btn btn-danger" onClick={() => openModal()}>
+                  delete
+                </button>
+                <button
+                  className={
+                    todo.completed ? "btn bg-warning" : "btn bg-success"
+                  }
+                  onClick={() => {
+                    onTodoUpdated({ ...todo, completed: !todo.completed });
+                  }}
+                >
+                  {todo.completed ? "mark as uncompleted" : "mark as completed"}
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    setEditing((e) => false);
+                  }}
+                >
+                  cancel
+                </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    onTodoUpdated({
+                      ...todo,
+                      title: titleInputRef.current.value,
+                      userid: useridInputRef.current.value,
+                    });
+                    setEditing((e) => false);
+                  }}
+                >
+                  confirm edit
+                </button>
+              </>
+            )}
           </div>
         )}
       </li>

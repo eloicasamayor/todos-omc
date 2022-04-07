@@ -9,10 +9,20 @@ export function Layout() {
     <div className="h-100">
       <header>
         <h1>Todo list</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Todo list</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </nav>
         {current_user.username != null ? (
           <p>{current_user.username}</p>
         ) : (
-          <Link to="/">login</Link>
+          <p>Not loged in</p>
         )}
       </header>
 
