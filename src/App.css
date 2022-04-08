@@ -1,14 +1,6 @@
-.completed {
-  text-decoration: line-through;
+p > mark,
+h1 > mark {
+  background-color: yellow;
+  color: black;
+  padding: 0;
 }
-li span {
-  cursor: pointer;
-}
-
-/* input:invalid {
-  box-shadow: 0 0 5px 1px red;
-}
-
-input:focus:invalid {
-  box-shadow: none;
-} */

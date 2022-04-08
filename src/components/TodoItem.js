@@ -58,9 +58,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
         <h4 className="card-title">Are you sure to delete the todo?</h4>
         <h5 className="card-subtitle">This operation cannot be undone.</h5>
         <hr />
-        <p className="text-center blockquote">
-          <del>{todo.title}</del>
-        </p>
+        <p className="text-center blockquote">{todo.title}</p>
         <hr />
         <div className="d-flex justify-content-between">
           <button
@@ -82,11 +80,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
         }
       >
         {!editing ? (
-          <span
-            onClick={() => {
-              onTodoUpdated({ ...todo, completed: !todo.completed });
-            }}
-          >
+          <span>
             {filters.searchquery !== "" ? (
               <>
                 <h4 className="card-title">{highlightText(todo.title)}</h4>

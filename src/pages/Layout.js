@@ -6,30 +6,40 @@ import { Link } from "react-router-dom";
 export function Layout() {
   const current_user = useSelector(selectLogin);
   return (
-    <div className="h-100">
-      <header>
-        <h1>Todo list</h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Todo list</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
+    <>
+      <header style={{ paddingLeft: "1rem" }}>
+        <nav className="pl-3 navbar navbar-expand-lg navbar-light bg-light">
+          <a href="#" className="navbar-brand mr-3">
+            Todo list
+          </a>
+
+          <div className="">
+            <ul className="navbar-nav mr-auto d-flex align-items-center flex-row">
+              <li className="nav-item mx-3">
+                <Link to="/" className="nav-link">
+                  Todo list
+                </Link>
+              </li>
+              <li className="nav-item mx-3">
+                {current_user.username != null ? (
+                  <Link to="/login" className="nav-link">
+                    logged as <b>{current_user.username}</b>
+                  </Link>
+                ) : (
+                  <Link to="/login" className="nav-link">
+                    Log in
+                  </Link>
+                )}
+              </li>
+            </ul>
+          </div>
         </nav>
-        {current_user.username != null ? (
-          <p>{current_user.username}</p>
-        ) : (
-          <p>Not loged in</p>
-        )}
       </header>
 
       <Outlet />
       <footer className="footer mt-auto py-3 bg-light">
         <p>Developed by Eloi Casamayor Esteve</p>
       </footer>
-    </div>
+    </>
   );
 }

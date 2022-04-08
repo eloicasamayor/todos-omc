@@ -59,7 +59,7 @@ export function Filters({
           id="see-uncompleted-todos"
           className="btn-check"
           defaultChecked={filters.seeUncompleted}
-          value="only uncompleted todos"
+          value="see uncompleted todos"
           ref={seeUncompletedTodosCheckbox}
           onChange={(e) => onSeeUncompletedChanged(e)}
         />
@@ -67,7 +67,7 @@ export function Filters({
           className="btn btn-outline-primary"
           htmlFor="see-uncompleted-todos"
         >
-          Uncompleted todos
+          See uncompleted todos
         </label>
 
         <input
@@ -75,7 +75,7 @@ export function Filters({
           type="checkbox"
           className="btn-check"
           defaultChecked={filters.seeCompleted}
-          value="only uncompleted todos"
+          value="uncompleted todos"
           ref={seeCompletedTodosCheckbox}
           onChange={(e) => onSeeCompletedChanged(e)}
         />
@@ -83,7 +83,7 @@ export function Filters({
           className="btn btn-outline-primary"
           htmlFor="see-completed-todos"
         >
-          Completed todos
+          See completed todos
         </label>
       </form>
     </div>
