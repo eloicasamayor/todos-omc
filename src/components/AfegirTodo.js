@@ -50,6 +50,7 @@ export function AfegirTodo({ onAddTodo }) {
     titleInputRef.current.value = "";
     useridInputRef.current.value = "";
     onAddTodo({ ...newTodo });
+    setTodoValidationResult((n) => false);
   };
 
   return (
@@ -73,7 +74,7 @@ export function AfegirTodo({ onAddTodo }) {
             </small>
           </div>
           <div className="col">
-            <label htmlFor="userId">user Id number</label>
+            <label htmlFor="userId">user Id</label>
             <input
               className="form-control"
               name="userId"

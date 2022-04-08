@@ -48,7 +48,7 @@ export function TodoItem({ todo, onTodoUpdated, onTodoDeleted, filters }) {
     );
   };
   return (
-    <div>
+    <div className="m-1">
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

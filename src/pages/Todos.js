@@ -52,7 +52,7 @@ export function Todos() {
   const seeUncompletedCheckbox = useRef();
   const seeCompletedCheckbox = useRef();
   return (
-    <>
+    <div className="p-2">
       {/*  <button onClick={loadTodos}>Refresh</button> */}
       <aside>
         <Filters
@@ -76,6 +76,6 @@ export function Todos() {
           filters={filters}
         />
       </main>
-    </>
+    </div>
   );
 }

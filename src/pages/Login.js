@@ -14,13 +14,11 @@ export function Login() {
 
   const onLoginUser = (username, password) => {
     checkUser(username, password)
-      .then((m) => {
-        console.log("log message" + m);
-        dispatch(loginUser({ username: username, password: password }));
+      .then((selectedUser) => {
+        dispatch(loginUser(selectedUser));
         navigate("/");
       })
       .catch((m) => {
-        console.log("error message: +m");
         dispatch(loginUser({}));
         showErrorMessage();
       });
