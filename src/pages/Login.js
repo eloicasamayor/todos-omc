@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/login/actions";
 import { useRef, useState } from "react";
 import { selectLogin } from "../redux/login/selectors";
-import { users } from "../data/users";
+import { checkUser } from "../redux/login/auth";
 import { useNavigate } from "react-router-dom";
 export function Login() {
   const dispatch = useDispatch();
@@ -11,18 +11,7 @@ export function Login() {
   const [errorMessageOn, setErrorMessageOn] = useState(false);
   const current_user = useSelector(selectLogin);
   let navigate = useNavigate();
-  function checkUser(username, password) {
-    return new Promise((resolve, reject) => {
-      let selectedUser = users.find(
-        (u) => u.username === username && u.password === password
-      );
-      if (selectedUser !== undefined) {
-        resolve("loged in!");
-      } else {
-        reject("wrong username or password");
-      }
-    });
-  }
+
   const onLoginUser = (username, password) => {
     checkUser(username, password)
       .then((m) => {
