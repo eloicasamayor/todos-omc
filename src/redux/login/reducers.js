@@ -10,14 +10,6 @@ export function reduceLogin(state = {}, action) {
   let selectedUser = {};
   switch (action.type) {
     case LOGIN_USER: {
-      /* selectedUser = users.find(
-        (u) =>
-          u.username === inputUser.username && u.password === inputUser.password
-      );
-      if (!selectedUser) {
-        selectedUser = {};
-      }
-      return { ...selectedUser }; */
       return action.user;
     }
 

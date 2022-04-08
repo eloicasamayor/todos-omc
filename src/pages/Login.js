@@ -1,13 +1,56 @@
 import { useDispatch, useSelector } from "react-redux";
-import { requestLoginUser } from "../redux/login/actions";
-import { useRef } from "react";
+import { loginUser } from "../redux/login/actions";
+import { useRef, useState } from "react";
 import { selectLogin } from "../redux/login/selectors";
+import { users } from "../data/users";
+import { useNavigate } from "react-router-dom";
 export function Login() {
   const dispatch = useDispatch();
-  const current_user = useSelector(selectLogin);
-  const onLoginUser = (user) => dispatch(requestLoginUser(user));
   const userInput = useRef();
   const passwordInput = useRef();
+  const [errorMessageOn, setErrorMessageOn] = useState(false);
+  const current_user = useSelector(selectLogin);
+  let navigate = useNavigate();
+  function checkUser(username, password) {
+    return new Promise((resolve, reject) => {
+      let selectedUser = users.find(
+        (u) => u.username === username && u.password === password
+      );
+      if (selectedUser !== undefined) {
+        resolve("loged in!");
+      } else {
+        reject("wrong username or password");
+      }
+    });
+  }
+  const onLoginUser = (username, password) => {
+    checkUser(username, password)
+      .then((m) => {
+        console.log("log message" + m);
+        dispatch(loginUser({ username: username, password: password }));
+        navigate("/");
+      })
+      .catch((m) => {
+        console.log("error message: +m");
+        dispatch(loginUser({}));
+        showErrorMessage();
+      });
+  };
+
+  async function showErrorMessage() {
+    setErrorMessageOn((e) => true);
+    await delay(3000);
+    setErrorMessageOn((e) => false);
+  }
+
+  function delay(ms) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
+    });
+  }
+
   function isEmpty(obj) {
     return Object.keys(obj).length === 0;
   }
@@ -44,19 +87,20 @@ export function Login() {
           type="button"
           className="btn btn-primary btn-block mb-4"
           onClick={() => {
-            onLoginUser({
-              username: userInput.current.value,
-              password: passwordInput.current.value,
-            });
+            onLoginUser(userInput.current.value, passwordInput.current.value);
           }}
         >
           Sign in
         </button>
       </form>
 
-      <div className="toast" role="alert">
-        Wrong username or password :(
-      </div>
+      {errorMessageOn && (
+        <div className="card bg-danger p-3">
+          <p className="text-center font-weight-bold">
+            Wrong username or password! :(
+          </p>
+        </div>
+      )}
     </div>
   ) : (
     <div className="Card mx-auto w-50">

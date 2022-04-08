@@ -3,7 +3,6 @@ import { reduceFilters } from "./filters/reducers";
 import { reduceTodos, todosMiddleware } from "./todos";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { reduceLogin } from "./login/reducers";
-import { loginMiddleware } from "./login/middleware";
 
 const reducer = combineReducers({
   todos: reduceTodos,
@@ -13,5 +12,5 @@ const reducer = combineReducers({
 
 export const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(todosMiddleware, loginMiddleware))
+  composeWithDevTools(applyMiddleware(todosMiddleware))
 );
