@@ -15,8 +15,60 @@ export function Filters({
     <div className="card card-body   m-2">
       <h2>Filter todos by</h2>
       <form onSubmit={onSearch} className="filters-wrapper">
-        <div className="d-flex  flex-column" style={{ gap: "2px", flex: "1" }}>
-          title
+        <div className="" style={{ gap: "2px", flex: "1" }}>
+          <div className="d-flex">
+            <span className="mr-auto p-2" style={{ flex: "1", height: "28px" }}>
+              title
+            </span>
+            {filters.searchquery !== "" && (
+              <div style={{ position: "relative" }}>
+                <button
+                  className="btn btn-secondary btn-sm h-1"
+                  style={{
+                    height: "30px",
+                    position: "absolute",
+                    bottom: "-34px",
+                    left: "-80px",
+                  }}
+                  type="button"
+                  onClick={() => {
+                    searchInputRef.current.value = "";
+                    onSearch();
+                  }}
+                  title="clear search"
+                >
+                  X
+                </button>
+
+                <input
+                  id="case-sensitive-checkbox"
+                  style={{
+                    height: "30px",
+                  }}
+                  type="checkbox"
+                  className="btn-check btn-sm"
+                  defaultChecked={filters.casesensitive}
+                  value="aA"
+                  title="case sensitive"
+                  ref={caseSensitiveCheckbox}
+                  onChange={(e) => onCaseSensitiveChanged(e)}
+                />
+                <label
+                  style={{
+                    height: "30px",
+                    position: "absolute",
+                    bottom: "-34px",
+                    left: "-50px",
+                  }}
+                  htmlFor="case-sensitive-checkbox"
+                  className="btn btn-outline-secondary"
+                  title="case sensitive"
+                >
+                  aA
+                </label>
+              </div>
+            )}
+          </div>
           <input
             className="form-control"
             type="text"
@@ -24,39 +76,6 @@ export function Filters({
             onChange={onSearch}
             placeholder="search todos"
           />
-          {filters.searchquery !== "" && (
-            <>
-              <button
-                className="btn btn-secondary"
-                type="button"
-                onClick={() => {
-                  searchInputRef.current.value = "";
-                  onSearch();
-                }}
-                title="clear search"
-              >
-                X
-              </button>
-
-              <input
-                id="case-sensitive-checkbox"
-                type="checkbox"
-                className="btn-check"
-                defaultChecked={filters.casesensitive}
-                value="aA"
-                title="case sensitive"
-                ref={caseSensitiveCheckbox}
-                onChange={(e) => onCaseSensitiveChanged(e)}
-              />
-              <label
-                htmlFor="case-sensitive-checkbox"
-                className="btn btn-outline-secondary"
-                title="case sensitive"
-              >
-                aA
-              </label>
-            </>
-          )}
         </div>
         <div className="d-flex  flex-column" style={{ gap: "2px", flex: "1" }}>
           state

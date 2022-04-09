@@ -3,11 +3,14 @@ import { TodoItem } from "./TodoItem";
 export function TodoList({ todos, onTodoUpdated, onTodoDeleted, filters }) {
   return (
     <div className="m-1">
-      <h1 className="ml-2">
-        {filters.searchquery !== ""
-          ? "Search results for " + <mark>{filters.searchquery}</mark>
-          : "List"}
-      </h1>
+      {filters.searchquery !== "" ? (
+        <h1 className="ml-2">
+          "Search results for "<mark> {filters.searchquery}</mark>
+        </h1>
+      ) : (
+        <h1>"List"</h1>
+      )}
+
       <ul className="list-group">
         {todos.map((todo, i) => (
           <TodoItem

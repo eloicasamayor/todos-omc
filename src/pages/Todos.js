@@ -60,7 +60,6 @@ export function Todos() {
   const seeCompletedCheckbox = useRef();
   return (
     <div className="p-1">
-      {/*  <button onClick={loadTodos}>Refresh</button> */}
       <aside>
         <Filters
           filters={filters}

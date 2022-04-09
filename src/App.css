@@ -11,6 +11,9 @@ h1 > mark {
   justify-content: around;
   gap: 6px;
 }
+li.list-group-item.completed > span > h4 {
+  text-decoration: line-through;
+}
 
 @media (max-width: 600px) {
   .add-todo-wrapper,
