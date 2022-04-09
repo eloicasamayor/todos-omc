@@ -14,6 +14,7 @@ import {
   searchQueryFilter,
   seeUncompletedFilter,
   seeCompletedFilter,
+  filterByUser,
 } from "../redux/filters/actions";
 
 export function Todos() {
@@ -44,27 +45,35 @@ export function Todos() {
     dispatch(seeCompletedFilter(e.target.checked));
   };
 
+  const onFilterByUserChanged = (e) => {
+    dispatch(filterByUser(e.target.value));
+    console.log("user changed", e.target.value);
+  };
+
   const onSearch = (e) => {
     onFilterTodos(searchInputRef.current.value);
   };
   const searchInputRef = useRef();
+  const selectUserRef = useRef();
   const caseSensitiveSearchChechbox = useRef();
   const seeUncompletedCheckbox = useRef();
   const seeCompletedCheckbox = useRef();
   return (
-    <div className="p-2">
+    <div className="p-1">
       {/*  <button onClick={loadTodos}>Refresh</button> */}
       <aside>
         <Filters
           filters={filters}
           onSearch={onSearch}
           searchInputRef={searchInputRef}
+          selectUserRef={selectUserRef}
           caseSensitiveSearchChechbox={caseSensitiveSearchChechbox}
           onCaseSensitiveChanged={onCaseSensitiveChanged}
           seeUncompletedCheckbox={seeUncompletedCheckbox}
           onSeeUncompletedChanged={onSeeUncompletedChanged}
           seeCompletedCheckbox={seeCompletedCheckbox}
           onSeeCompletedChanged={onSeeCompletedChanged}
+          onFilterByUserChanged={onFilterByUserChanged}
         />
         <AfegirTodo onAddTodo={onAddTodo} />
       </aside>

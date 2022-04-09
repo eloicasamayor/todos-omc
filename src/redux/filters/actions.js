@@ -28,3 +28,11 @@ export function seeCompletedFilter(seeCompleted) {
     seeCompleted: seeCompleted,
   };
 }
+
+export const FILTER_BY_USER = "filters/FILTER_BY_USER";
+export function filterByUser(userId) {
+  return {
+    type: FILTER_BY_USER,
+    userId: userId,
+  };
+}

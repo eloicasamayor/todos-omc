@@ -1,6 +1,7 @@
 export function Filters({
   onSearch,
   searchInputRef,
+  selectUserRef,
   filters,
   caseSensitiveCheckbox,
   onCaseSensitiveChanged,
@@ -8,12 +9,14 @@ export function Filters({
   onSeeUncompletedChanged,
   seeCompletedTodosCheckbox,
   onSeeCompletedChanged,
+  onFilterByUserChanged,
 }) {
   return (
-    <div className="card card-body">
-      <h2>Filter todos</h2>
-      <form onSubmit={onSearch}>
-        <div className="d-flex" style={{ gap: "6px" }}>
+    <div className="card card-body   m-2">
+      <h2>Filter todos by</h2>
+      <form onSubmit={onSearch} className="filters-wrapper">
+        <div className="d-flex  flex-column" style={{ gap: "2px", flex: "1" }}>
+          title
           <input
             className="form-control"
             type="text"
@@ -24,7 +27,7 @@ export function Filters({
           {filters.searchquery !== "" && (
             <>
               <button
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 type="button"
                 onClick={() => {
                   searchInputRef.current.value = "";
@@ -47,7 +50,7 @@ export function Filters({
               />
               <label
                 htmlFor="case-sensitive-checkbox"
-                className="btn btn-outline-primary"
+                className="btn btn-outline-secondary"
                 title="case sensitive"
               >
                 aA
@@ -55,41 +58,59 @@ export function Filters({
             </>
           )}
         </div>
-        <div
-          className="mt-2 d-flex justify-content-center"
-          style={{ gap: "8px" }}
-        >
-          <input
-            type="checkbox"
-            id="see-uncompleted-todos"
-            className="btn-check"
-            defaultChecked={filters.seeUncompleted}
-            value="see uncompleted todos"
-            ref={seeUncompletedTodosCheckbox}
-            onChange={(e) => onSeeUncompletedChanged(e)}
-          />
-          <label
-            className="btn btn-outline-primary"
-            htmlFor="see-uncompleted-todos"
+        <div className="d-flex  flex-column" style={{ gap: "2px", flex: "1" }}>
+          state
+          <div className="btn-group">
+            <input
+              type="checkbox"
+              id="see-uncompleted-todos"
+              className="btn-check"
+              defaultChecked={filters.seeUncompleted}
+              value="uncompleted todos"
+              ref={seeUncompletedTodosCheckbox}
+              onChange={(e) => onSeeUncompletedChanged(e)}
+            />
+            <label
+              className="btn btn-outline-secondary"
+              htmlFor="see-uncompleted-todos"
+            >
+              uncompleted
+            </label>
+            <input
+              id="see-completed-todos"
+              type="checkbox"
+              className="btn-check"
+              defaultChecked={filters.seeCompleted}
+              value="uncompleted todos"
+              ref={seeCompletedTodosCheckbox}
+              onChange={(e) => onSeeCompletedChanged(e)}
+            />
+            <label
+              className="btn btn-outline-secondary"
+              htmlFor="see-completed-todos"
+            >
+              completed
+            </label>
+          </div>
+        </div>
+        <div className=" d-flex flex-column" style={{ gap: "2px", flex: "1" }}>
+          <label htmlFor="completed">user</label>
+          <select
+            ref={selectUserRef}
+            className="form-control"
+            name="completed"
+            id="completed"
+            defaultValue={false}
+            onChange={(e) => {
+              onFilterByUserChanged(e);
+            }}
+            required
           >
-            See uncompleted todos
-          </label>
-
-          <input
-            id="see-completed-todos"
-            type="checkbox"
-            className="btn-check"
-            defaultChecked={filters.seeCompleted}
-            value="uncompleted todos"
-            ref={seeCompletedTodosCheckbox}
-            onChange={(e) => onSeeCompletedChanged(e)}
-          />
-          <label
-            className="btn btn-outline-primary"
-            htmlFor="see-completed-todos"
-          >
-            See completed todos
-          </label>
+            <option value="">All users</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
         </div>
       </form>
     </div>

@@ -4,6 +4,9 @@ import { useRef, useState } from "react";
 import { selectLogin } from "../redux/login/selectors";
 import { checkUser } from "../redux/login/auth";
 import { useNavigate } from "react-router-dom";
+export function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
 export function Login() {
   const dispatch = useDispatch();
   const userInput = useRef();
@@ -38,12 +41,8 @@ export function Login() {
     });
   }
 
-  function isEmpty(obj) {
-    return Object.keys(obj).length === 0;
-  }
-
   return isEmpty(current_user) ? (
-    <div className="Card mx-auto w-50">
+    <div className="Card mx-auto w-50 text-center">
       <h1>Login</h1>
       <form>
         <div className="form-outline mb-4">
@@ -90,8 +89,8 @@ export function Login() {
       )}
     </div>
   ) : (
-    <div className="Card mx-auto w-50">
-      <h2>Logged as </h2>
+    <div className="Card mx-auto w-50 mt-5">
+      <h2 className="text-center">Logged as </h2>
       <p>
         <b>username:</b> {current_user.username}
       </p>

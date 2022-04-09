@@ -23,7 +23,7 @@ export function Edit() {
 
   if (typeof todo !== "undefined") {
     return (
-      <div>
+      <div className="p-3">
         <h2>Edit the todo</h2>
         <form>
           <div className="col">
@@ -61,24 +61,29 @@ export function Edit() {
               <option value={false}>Not completed</option>
             </select>
           </div>
-          <button
-            className="btn btn-secondary"
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch(
-                requestUpdateTodo({
-                  ...todo,
-                  title: titleInputRef.current.value,
-                  userid: useridInputRef.current.value,
-                })
-              );
-            }}
+          <div
+            className="d-flex p-3 justify-content-center"
+            style={{ gap: "12px" }}
           >
-            edit
-          </button>
-          <Link to="/" className="btn btn-secondary">
-            cancel
-          </Link>
+            <button
+              className="btn btn-secondary"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(
+                  requestUpdateTodo({
+                    ...todo,
+                    title: titleInputRef.current.value,
+                    userid: useridInputRef.current.value,
+                  })
+                );
+              }}
+            >
+              edit
+            </button>
+            <Link to="/" className="btn btn-secondary">
+              cancel
+            </Link>
+          </div>
         </form>
       </div>
     );

@@ -54,11 +54,11 @@ export function AfegirTodo({ onAddTodo }) {
   };
 
   return (
-    <div className="card card-body">
+    <div className="card card-body  m-2">
       <h2>Add a todo</h2>
       <form onSubmit={(e) => handleSubmit(e)} id="new-todo-form">
-        <div className="row">
-          <div className="col">
+        <div className="add-todo-wrapper">
+          <div style={{ flex: "1" }}>
             <label htmlFor="title">Title</label>
             <input
               className="form-control"
@@ -73,7 +73,7 @@ export function AfegirTodo({ onAddTodo }) {
               {formErrors.titleError}
             </small>
           </div>
-          <div className="col">
+          <div style={{ flex: "1" }}>
             <label htmlFor="userId">user Id</label>
             <input
               className="form-control"
@@ -88,7 +88,8 @@ export function AfegirTodo({ onAddTodo }) {
               {formErrors.userIdError}
             </small>
           </div>
-          <div className="col">
+
+          <div style={{ flex: "1" }}>
             <label htmlFor="completed">Completed?</label>
             <select
               className="form-control"
@@ -103,10 +104,16 @@ export function AfegirTodo({ onAddTodo }) {
               <option value={false}>Not completed</option>
             </select>
           </div>
+
+          {todoValidationResult && (
+            <input
+              style={{ flex: "1" }}
+              type="submit"
+              className="btn btn-primary mt-3"
+              value="add new todo"
+            ></input>
+          )}
         </div>
-        {todoValidationResult && (
-          <input type="submit" className="btn btn-primary" value="add"></input>
-        )}
       </form>
     </div>
   );

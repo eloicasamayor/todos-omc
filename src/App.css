@@ -4,3 +4,17 @@ h1 > mark {
   color: black;
   padding: 0;
 }
+.add-todo-wrapper,
+.filters-wrapper {
+  display: flex;
+
+  justify-content: around;
+  gap: 6px;
+}
+
+@media (max-width: 600px) {
+  .add-todo-wrapper,
+  .filters-wrapper {
+    flex-direction: column;
+  }
+}

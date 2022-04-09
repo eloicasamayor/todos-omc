@@ -2,17 +2,12 @@ import { TodoItem } from "./TodoItem";
 
 export function TodoList({ todos, onTodoUpdated, onTodoDeleted, filters }) {
   return (
-    <>
-      {filters.searchquery !== "" ? (
-        <h1>
-          Search results for "<mark>{filters.searchquery}</mark>"
-        </h1>
-      ) : (
-        <>
-          <h1>All todos</h1>
-        </>
-      )}
-      {filters.onlyUncompleted && <h2>(showing only uncompleted)</h2>}
+    <div className="m-1">
+      <h1 className="ml-2">
+        {filters.searchquery !== ""
+          ? "Search results for " + <mark>{filters.searchquery}</mark>
+          : "List"}
+      </h1>
       <ul className="list-group">
         {todos.map((todo, i) => (
           <TodoItem
@@ -24,6 +19,6 @@ export function TodoList({ todos, onTodoUpdated, onTodoDeleted, filters }) {
           />
         ))}
       </ul>
-    </>
+    </div>
   );
 }

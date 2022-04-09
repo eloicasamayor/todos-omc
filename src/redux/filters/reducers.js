@@ -3,12 +3,14 @@ import {
   SEARCH,
   SEE_UNCOMPLETED,
   SEE_COMPLETED,
+  FILTER_BY_USER,
 } from "./actions";
 const initialState = {
   searchquery: "",
   casesensitive: false,
   seeUncompleted: true,
   seeCompleted: true,
+  user: "",
 };
 export function reduceFilters(state = initialState, action) {
   switch (action.type) {
@@ -22,6 +24,8 @@ export function reduceFilters(state = initialState, action) {
       return { ...state, seeUncompleted: action.seeUncompleted };
     case SEE_COMPLETED:
       return { ...state, seeCompleted: action.seeCompleted };
+    case FILTER_BY_USER:
+      return { ...state, user: action.userId };
 
     default:
       return state;

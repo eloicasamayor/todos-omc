@@ -7,9 +7,13 @@ export function Layout() {
   const current_user = useSelector(selectLogin);
   return (
     <>
-      <header style={{ paddingLeft: "1rem" }}>
+      <header>
         <nav className="pl-3 navbar navbar-expand-lg navbar-light bg-light">
-          <a href="#" className="navbar-brand mr-3">
+          <a
+            style={{ paddingLeft: "1rem" }}
+            href="#"
+            className="navbar-brand mr-3"
+          >
             Todo list
           </a>
 
@@ -38,7 +42,12 @@ export function Layout() {
 
       <Outlet />
       <footer className="footer mt-auto py-3 bg-light">
-        <p>Developed by Eloi Casamayor Esteve</p>
+        <p className="text-center">
+          Developed by{" "}
+          <Link to="https://eloicasamayor.github.io/portfolio/">
+            Eloi Casamayor Esteve
+          </Link>
+        </p>
       </footer>
     </>
   );
