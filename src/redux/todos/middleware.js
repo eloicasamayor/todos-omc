@@ -14,12 +14,14 @@ import {
   postUpdateTodo,
   deleteDeleteTodo,
 } from "./TodosApi";
-
+import { setLoading } from "../loading/actions";
 export const todosMiddleware = (store) => (next) => async (action) => {
   next(action);
   if (action.type === REQUEST_TODOS) {
+    store.dispatch(setLoading(true));
     const todos = await getTodos();
     store.dispatch(replaceTodos(todos));
+    store.dispatch(setLoading(false));
   }
   if (action.type === REQUEST_ADD_TODO) {
     const todo = await postNewTodo(action.todo);

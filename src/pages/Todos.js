@@ -16,11 +16,12 @@ import {
   seeCompletedFilter,
   filterByUser,
 } from "../redux/filters/actions";
+import { selectLoading } from "../redux/loading/selectors";
 
 export function Todos() {
   const todos = useSelector(selectTodos);
   const filters = useSelector(selectFilters);
-
+  const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     const intervalID = setInterval(() => loadTodos(), 600000);
@@ -77,12 +78,16 @@ export function Todos() {
         <AfegirTodo onAddTodo={onAddTodo} />
       </aside>
       <main>
-        <TodoList
-          todos={todos}
-          onTodoUpdated={onTodoUpdated}
-          onTodoDeleted={onTodoDeleted}
-          filters={filters}
-        />
+        {loading ? (
+          <p>Loading data...</p>
+        ) : (
+          <TodoList
+            todos={todos}
+            onTodoUpdated={onTodoUpdated}
+            onTodoDeleted={onTodoDeleted}
+            filters={filters}
+          />
+        )}
       </main>
     </div>
   );
